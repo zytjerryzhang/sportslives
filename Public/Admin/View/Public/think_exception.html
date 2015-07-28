@@ -1,0 +1,61 @@
+<?php
+    if(C('LAYOUT_ON')) {
+        echo '{__NOLAYOUT__}';
+    }
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<title>系统发生错误</title>
+<style type="text/css">
+*{ padding: 0; margin: 0; }
+html{ overflow-y: scroll; }
+body{ background: #fff; font-family: '微软雅黑'; color: #333; font-size: 14px; }
+img{ border: 0; }
+.m-register-header{padding: 30px 0;margin: 0 auto;width: 1140px;overflow: hidden}
+.m-register-header .m-logo{float: left;}
+.m-register-header .m-border{float:left;margin:15px 25px 0;height:26px;border-left: 2px solid #d9d9d9;}
+.m-register-header .m-register-span{float:left;font-size: 24px;color: #414141;margin-top: 9px;}
+
+.u-btn{display:inline-block;*display:inline;*zoom:1;*overflow:visible;-webkit-box-sizing:content-box;-moz-box-sizing:content-box;
+    box-sizing:content-box;
+    padding:0 10px;height:22px;line-height:22px;font-size: 12px;
+    border:0;letter-spacing:1px;word-spacing:normal;text-align:center;vertical-align:middle;cursor:pointer;background:#f1f1f1;
+    border: 1px solid #cdcdcd;color: #000;text-decoration:none;}
+.m-jump-tip{border: 1px solid #ccc;text-align: center;padding: 200px 0;width: 1140px;margin: 0 auto}
+.m-jump-tip .m-jump-success{color: #358c17;font-size: 24px;font-weight: bold;}
+.m-jump-tip .m-jump-error{color: #f92402;font-size: 24px;font-weight: bold;}
+.m-jump-tip .m-jump-jump{margin-top: 20px;}
+.m-jump-tip .m-jump-jump #href{margin-right: 10px;margin-top: -3px;}
+</style>
+</head>
+<body>
+    <div class="m-register-header f-cb wj-width">
+        <div class="f-fl">
+            <a class="m-logo" href="">
+                <img src="./Public/image/logo.png" width="390" height="58" title="微金互助">
+            </a>
+            <i class="m-border"></i>
+            <span class="m-register-span">提示信息</span>
+        </div>
+    </div>
+    <div class="m-jump-tip">
+        <h2 class="m-jump-error">系统错误提示</h2>
+        <p class="m-jump-jump">
+            <a class="u-btn u-btn-c4 u-btn-sm" id="href" href="<?php echo($jumpUrl); ?>">点此返回</a><b id="wait">4</b>秒后页面将自动跳转
+        </p>
+    </div>
+</body>
+<script type="text/javascript">
+    (function(){
+        var wait = document.getElementById('wait'),href = document.getElementById('href').href;
+        var interval = setInterval(function(){
+            var time = --wait.innerHTML;
+            if(time <= 0) {
+                location.href = href;
+                clearInterval(interval);
+            };
+        }, 1000);
+    })();
+</script>
+</html>

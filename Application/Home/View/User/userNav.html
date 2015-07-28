@@ -1,0 +1,30 @@
+<div class="left menus">
+	<div class="menu">
+		<if condition="$nav eq 'index'">
+			<span class="cur">用户信息</span>
+		<else />
+			<a href="{:U('user/index','html')}">用户信息</a>			
+		</if>
+	</div>
+	<div class="menu">
+		<if condition="$nav eq 'order'">
+			<span class="cur">我的订单</span>
+		<else />
+			<a href="{:U('order/index','html')}">我的订单</a>
+		</if>	
+	</div>
+	<div class="menu">
+		<if condition="$nav eq 'fav'">
+			<span class="cur">我的收藏</span>
+		<else />
+			<a href="{:U('fav/index','html')}">我的收藏</a>
+		</if>
+	</div>
+	<div class="menu">
+		<if condition="$nav eq 'comments'">
+			<span class="cur">我的评价</span>
+		<else />
+			<a href="{:U('comments/index','html')}">我的评价</a>
+		</if>
+	</div>
+</div>

@@ -1,0 +1,110 @@
+<div class="toolbar cf">
+	<div class="tool_date cf">
+		<div class="title cf">
+			<div class="more form" id="ver_keys">	
+				{if $permission.'Nav/navList'}			
+                    <form id="lcsubmit" battr=1  burl='Nav/navList' page="Nav/navList" class="fl">
+                                                               导航名称：<input type="text" name="name" placeholder=""/>
+                                                               项目类型：
+                        <select name="pro_id">
+                        	<option value="">请选择</option>
+                            {foreach from=$pro_item key=tkey item=pval}
+                            <option value="{$pval.id}">{$pval.name}</option>
+                            {/foreach}
+                        </select>
+                                                               导航类型:
+                        <select name="type">
+                        	<option value="">请选择</option>
+                            {foreach from=$navType key=tkey item=tval}
+                            <option value="{$tkey}">{$tval}</option>
+                            {/foreach}
+                        </select>
+                        <input type="submit"  class="btn" value="搜索">
+                    </form>
+				{/if}
+				{if $permission.'Nav/mNavInfo'}
+					<label><input type="button" value="保存"  burl="Nav/mNavInfo" class="saveInfo btn"/></label>
+				{/if}
+				<label>
+					<input type="button" value="新增" class="addTr btn">
+				</label>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- -->
+<div id="table_column" class="column cf datashow">
+	<div id="dataTable" class="dataTable">
+		<table  width="80%" cellpadding="5" cellspacing="3" class="contab">
+				<thead>
+					<tr>
+						<th>导航ID</th>
+						<th>项目</th>
+						<th>导航类型</th>
+						<th>导航名称</th>
+						<th>导航图片地址</th>
+						<th>导航目标URL</th>
+						<th>打开链接方式</th>
+						<th>排序</th>
+						<th>状态</th>
+						<th>创建时间</th>
+						<th>更新时间</th>
+						<th>操作</th>
+					</tr>
+				</thead>		
+				<tbody class="dataTab">
+					{foreach from=$aData key=key item=val}
+					<tr {if $key%2 != 0} class="divGray" {/if}>
+						<td><input disabled="disabled" type="hidden" name="id" value={$val.id} >{$val.id}</td>
+						<td>
+							<select name="pro_id" disabled="disabled">
+	                        	<option value="">请选择</option>
+	                            {foreach from=$pro_item key=tkey item=pval}
+	                            <option {if $val.pro_id == $pval.id}selected="selected"{/if} value="{$pval.id}">{$pval.name}</option>
+	                            {/foreach}
+	                        </select>
+	                    </td>
+						<td>
+							<select name="type" disabled="disabled">
+							{foreach from=$navType key=tkey item=tval}
+								<option {if $val.type == $tkey}selected="selected"{/if} value="{$tkey}">{$tval}</option>
+							{/foreach}
+							</select>
+						</td>
+						<td><input disabled="disabled" type="text" name="name" value="{$val.name}" /></td>
+						<td><input disabled="disabled" type="text" name="pic_addr" value="{$val.pic_addr}" /></td>
+						<td><input disabled="disabled" type="text" name="url" value="{$val.url}" /></td>
+						<td>
+							<select name="target" disabled="disabled">
+								<option {if $val.target == "_blank"}selected="selected"{/if} value="_blank">_blank</option>
+								<option {if $val.target == "_parent"}selected="selected"{/if} value="_parent">_parent</option>
+								<option {if $val.target == "_self"}selected="selected"{/if} value="_self">_self</option>
+								<option {if $val.target == "_top"}selected="selected"{/if} value="_top">_top</option>
+							</select>
+						</td>
+						<td><input disabled="disabled" type="text" name="idx" value="{$val.idx}" style="width:30px;"/></td>
+						<td>
+							<select name="status" disabled="disabled" style="width:70px;">
+								<option {if $val.status == 1}selected="selected"{/if} value=1>正常</option>
+								<option {if $val.status == 0}selected="selected"{/if} value=0>禁用</option>															
+							</select>
+						</td>
+						<td>{$val.create_time|dateformat}</td>
+						<td>{$val.update_time|dateformat}</td>						
+						<td>
+							<span>
+								<a class="editTr" isedit="0">编辑</a>
+							</span>
+						</td>
+					</tr>
+				{/foreach}
+			</tbody>
+		</table>
+	</div>
+	<div class="page">{$pagelink}</div>	
+</div>	
+<!-- end -->
+{literal}
+<script type="text/javascript">  
+</script>
+{/literal}

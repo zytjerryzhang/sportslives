@@ -1,0 +1,128 @@
+<div class="toolbar cf">
+	<div class="tool_date cf">
+		<div class="title cf">
+			<div class="more form" id="ver_keys">			
+				<form id="lcsubmit" battr=1  burl='Bank/myBank' page="Bank/myBank" class="fl">
+					银行卡号:  <input type="text" name="bank_card_number"/>
+					<input type="submit"  class="btn" value="搜索">
+				</form>
+				<label>
+					<input type="button" value="新增" class="addTr btn">
+				</label>
+				{if $permission.'Bank/modifyBank'}
+					<label><input type="button" value="保存"  burl="Bank/modifyBank" class="saveInfo btn"/></label>
+				{/if}
+			</div>
+		</div>
+	</div>
+</div>
+<!-- -->
+<div id="table_column" class="column cf datashow">
+	<div id="dataTable" class="dataTable">
+		<table  width="80%" cellpadding="5" cellspacing="3" class="contab">
+				<thead>
+					<tr>
+						<th><input type="checkbox" class="check" isc=2 ></th>
+						<th>用户ID</th>
+						<th>开户名</th>
+						<th>银行卡号</th>
+						<th>银行名称</th>
+						<th>银行所在省</th>
+						<th>银行所在市</th>
+						<th>支行名称</th>
+						<th>状态</th>
+						<th>创建时间</th>
+						<th>更新时间</th>
+						<th>操作</th>
+					</tr>
+				</thead>		
+				<tbody class="dataTab">
+					{foreach from=$aData key=key item=val}
+					<tr {if $key%2 != 0} class="divGray" {/if}>
+						<td>
+							<input disabled="disabled" type="hidden" name="id" value={$val.id} ><!-- 有删除功能的主键放在首个td下 -->
+							<input type="checkbox" name='ids[]' value="{$val.id}">
+						</td>
+						<td><input disabled="disabled" type="text" name="user_id" value="{$val.user_id}" style="width:55px;"/></td>
+						<td><input disabled="disabled" type="text" name="real_name" value="{$val.real_name}" style="width:55px;"/></td>
+						<td><input disabled="disabled" type="text" name="bank_card_number" value="{$val.bank_card_number}" /></td>
+						<td><input disabled="disabled" type="text" name="bank_name" value="{$val.bank_name}"/></td>
+						<td>
+							<select name="bank_prov" class="bank_prov" ref="bank_city{$val.id}" disabled="disabled" style="width:90px;">
+		    					{foreach from=$prCitys key=key item=v}
+									<option value="{$key}" {if $val.bank_prov eq $v.province_name} selected="selected"{/if} >{$v.province_name}</option>
+								{/foreach}	
+		    				</select>
+						</td>
+						<td>
+							<select name="bank_city" id="bank_city{$val.id}" disabled="disabled" style="width:90px;">
+		    					{foreach from=$prCitys key=key item=v}
+		    						{if $val.bank_prov eq $v.province_name}
+			    						{foreach from=$v.city key=key item=v}
+											<option value="{$v.city_name}" {if $val.bank_city eq $v.city_name} selected="selected"{/if}>{$v.city_name}</option>
+										{/foreach}
+									{/if}
+								{/foreach}
+		    				</select>
+						</td>
+						<td><input disabled="disabled" type="text" name="br_bank_name" value="{$val.br_bank_name}" style="width:175px;"/></td>
+						<td>
+							<select name="status" disabled="disabled">
+								<option {if $val.status == 1}selected="selected"{/if} value=1 >正常</option>
+								<option {if $val.status == 0}selected="selected"{/if} value=0 >禁用</option>															
+							</select>
+						</td>
+						<td>{$val.create_time|dateformat}</td>
+						<td>{$val.update_time|dateformat}</td>
+						<td>
+							<span>
+								<a class="editTr" isedit="0">编辑</a>
+							</span>	
+						</td>
+					</tr>
+				{/foreach}
+				<tr>
+					<td colspan="12" style="height:28px;">
+	        			<span>
+	        				<a class="check" isc=1>全选</a> / 
+	        				<a class="check" isc=0>全不选</a>
+	        			</span>
+	        			&nbsp;&nbsp;
+	        			<span>
+	        				<a class="bantcheditTr" isedit="1">批量编辑</a>
+	        			</span>
+	        			
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="page">{$pagelink}</div>	
+</div>	
+<!-- end -->
+{literal}
+<script type="text/javascript">  
+var dropDown = {
+	data: null,		
+	selectObj: null,		
+	loadData:function() {	
+		var html = '';
+		var option = [];
+		$.each(dropDown.data, function(i, v){
+			option.push("<option value= " + i +">" + v.city_name +"</option>"); //省市
+		});			
+		html = option.join('');				
+		this.selectObj.html('');
+		$(html).appendTo(this.selectObj);
+	}
+};	
+//省 市联动
+$(".bank_prov").change(function() {			
+	var pid = $(this).val();
+	var ref = $(this).attr('ref');
+	dropDown.data = pid != '0' ? LC._data.data.prCitys[pid]['city'] : LC._data.data.prCitys;
+	dropDown.selectObj = $("#"+ref);	
+	dropDown.loadData();
+});
+</script>
+{/literal}

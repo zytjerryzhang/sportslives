@@ -1,0 +1,136 @@
+<div id="oa">
+	<div id="header" class="of">
+		<div class="logo fl">
+			<a href="#">
+				<!--<img src="<?php echo $path;?>images/source/logo.jpg" height="30" alt="运动汇" />-->
+			</a>
+		</div><!--end .logo-->
+		<div class="nav_cont">
+			<div class="nav cl" id="nav">
+				<ul>					
+					<?php foreach($menu_info as $mInfo) { 
+                            if($mInfo['status'] >= 2) continue;
+                        ?>
+	                    <?php if(!$mInfo['url']) {?>
+							<li><a class="menu-value" data-id=<?php echo $mInfo['id'];?>><?php echo $mInfo['name']?></a></li>
+						<?php }?>
+					<?php }?>
+				</ul>
+			</div><!--end .nav-->
+		</div>
+		<div style="float:right;padding:14px 10px 0 25px;">
+			<font color="white" style="font-weight:bold;font-size:8pt;">您好：<?php echo $user_info['username'];?></font>
+			<a style="padding:2px 12px;" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover" href="/Login/logout">退出</a>
+			<a style="padding:2px 12px;" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover" href="javascript:void(0)" onclick="changePassWord()">修改密码</a>
+		</div>
+	</div><!--end .head-->
+	<div class="slidenav" id="nav-table-data"></div>      
+	<div class="wrapper">
+        <div class="sidebar">
+			<div id="category" class="subnav"></div>
+		</div>
+		<div class="main cl" >
+           <div class="guid">
+           		<div id="breadcrumb"></div>
+           		<div>
+           			<span style="float:right;margin:-22px 207px;">
+           				<img src="/Admin/images/clock.gif" />
+           			</span>
+           			<span style="float:right;margin:-20px 13px;">
+           				<font id='time' color="#3B5998"></font>
+           			</span>
+           		</div>
+           </div>
+		   <div id="showDiv" class="content"></div><!--end .content-->
+		</div><!--end .main-->
+	</div>	
+</div><!--end .page-->	
+<!-- 修改密码弹层 -->
+<div id="dlg_changePasswd" style="display: none;" title="修改密码">
+    <div class="validateTips" id="alertTips" style="display:none;"></div>
+    <form name="passwForm" id="passwForm" method="post" action="" target="_blank">
+        <div class="bill">
+        	<div style="width: 100%;margin-top:10px;" class="bill-item">
+                <div style="width: 26%;" class="bill-item-left">新密码：</div>
+                <div style="width: 70%;" class="bill-item-right">
+                   <input type="password" name="passwd" style="width:180px;"/>
+                </div>
+            </div>
+            <div style="width: 100%;margin-top:10px;" class="bill-item">
+                <div style="width: 26%;" class="bill-item-left">确认密码：</div>
+                <div style="width: 70%;" class="bill-item-right">
+                   <input type="password" name="surePasswd" style="width:180px;"/>
+                </div>
+            </div>
+        </div>    
+    </form>
+</div>
+<div id="dialog-logout" style="display: none;">
+	<p style="text-align:center;font-size: 14px;color: red;font-weight: bold;" id="msgNotice">
+		登录超时！点击确定重新登录。。。
+	</p>
+</div>
+<script type="text/javascript">
+time();
+function time(){
+    var mydate  = new Date();
+    var week    = new Array("星期日","星期一","星期二","星期三","星期四","星期五","星期六");
+    var year    = mydate.getFullYear(); 
+    var month   = mydate.getMonth()+1;
+    var day     = mydate.getDate();
+    var hours   = mydate.getHours();
+    var minutes = mydate.getMinutes();
+    var seconds = mydate.getSeconds();
+    var myweek  = week[mydate.getDay()];
+    month       = month < 10 ? '0' + month : month;
+    day         = day < 10 ? '0' + day : day;
+    hours       = hours < 10 ? '0' + hours : hours;
+    minutes     = minutes < 10 ? '0' + minutes : minutes;
+    seconds     = seconds < 10 ? '0' + seconds : seconds;
+    year        = navigator.userAgent.indexOf("Firefox")>0 ? year+1900:year;
+    var str     = '';
+    //year兼容性问题
+    str         = ( (year>3000) ? (year-1900) : year )+'年'+month+'月'+day+'日'+' '+myweek+' '+hours+":"+minutes+":"+seconds;
+    document.getElementById('time').innerHTML = str;
+  	setTimeout("time()",1000);
+}
+
+/**
+ * 新增菜单列表项
+ */
+function changePassWord(){
+	$('#dlg_changePasswd').dialog({	   
+	    autoOpen: true,
+		modal: true,
+        show:'slide',
+        hide:'slide',
+        title: '修改用户密码',
+		resizable: false,
+		height:250,	
+		width: 550,
+		buttons:{
+	    	'关闭': function() {
+	    		$('#dlg_changePasswd').dialog('close');
+			 },
+			'确定': function() {
+				$.ajax({
+					type: 'post',
+					url: LC._action+'Login/updatePasswd',
+					data: $('#passwForm').serializeArray(),
+					async: true,
+					dataType: 'json', //xml, json, script or html
+					success: function(data) {
+						if (data.status == 1) {
+							$('#dlg_changePasswd').dialog('close');
+							//修改密码重新登录系统
+							location.href = LC._action+'Login/login';
+						} else {
+							LCPAGE.msg('alertTips', data.info);
+						}
+					}
+				});
+			}
+		}	 
+	});
+}
+</script>

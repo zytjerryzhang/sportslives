@@ -1,0 +1,74 @@
+<div class="validateTips" id="menuTips" style="display:none;"></div>
+<form name="categoryForm" id="editForm" method="post" action="" target="_blank">
+<input type="hidden" name="id" value="{$Think.get.id}" />
+<div class="bill">
+    <div class="bill-item">
+        <div style="width: 16%;" class="bill-item-left">所在城市：</div>
+        <div style="width: 53%;" class="bill-item-right">
+            <select name="city_id" id="city_id">
+                <option value="0">请选择城市</option>
+                <foreach name="city" item="v">
+                    <option value="{$v.id}">{$v.name}</option>
+                </foreach>
+            </select>
+        </div>
+        <div class="clr" />
+    </div>
+    <div class="bill-item">
+        <div style="width: 16%;" class="bill-item-left">所在区域：</div>
+        <div style="width: 83%;" class="bill-item-right" id="area_wrap">
+        </div>
+        <div class="clr" />
+    </div>
+    <div class="bill-item">
+        <div style="width: 16%;" class="bill-item-left">所在地铁线：</div>
+        <div style="width: 83%;" class="bill-item-right" id="subway_wrap">
+        </div>
+        <div class="clr" />
+    </div>
+</div>
+</form>
+<script type="text/javascript">
+    var data = {
+        city_id: {$city_id.city_id},
+        area_id: [{$area}],
+        subway_id: [{$subway}],
+    };
+$('#city_id').change(function(){
+    data.city_id = this.value;
+    $('#subway_wrap').html('')
+    $('#area_wrap').html('')
+    if (this.value == "0") {
+        $('#subway_wrap').parent().hide();
+        $('#area_wrap').parent().hide();
+    } else {
+        LC.loadData('Gym/getCitySubwayArea/id/' + this.value, null, function(data) {
+            for (var k2 in data) {
+                var v2 = data[k2];
+                if (!v2) continue;
+                var str = '';
+                for (var k in v2) {
+                    var v = v2[k];
+                    if (window.data[k2+'_id'].indexOf(parseInt(v.id)) != -1)
+                        var c = 'checked';
+                    else var c = '';
+                    str += '<label style="line-height: 35px;margin-right:20px;">';
+                    str += '<input '+ c +' name="' + k2 +'[]" class="gym_checked" type="checkbox" value="' + v.id  + '"/>';
+                    str += v.name + '</label> ';
+                }
+                $('#'+k2+'_wrap').html(str).parent().show();
+            }
+            $('.gym_checked').click(function(){
+                window.data.area_id = [];
+                window.data.subway_id = [];
+                $('#area_wrap input:checked').each(function(i){
+                    window.data.area_id[i] = this.value;
+                })
+                $('#subway_wrap input:checked').each(function(i){
+                    window.data.subway_id[i] = this.value;
+                })
+            });
+        })
+    }
+}).val(data.city_id).change();
+</script>

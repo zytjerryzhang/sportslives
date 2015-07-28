@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head lang="ch">
+<meta charset="UTF-8">
+<title>Paradiso Wordpress Template</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<link href="css/style.css" rel="stylesheet">
+</head>
+<body id="order">
+<div id="top" class="center-1000">
+  <div class="center-1000">
+    <div class="left">
+      <ul>
+        <li id="top-app" class="left"> <a href="###">手机应用</a> </li>
+        <li class="left"> <span class="spe">|</span> </li>
+        <li id="top-wx" class="left"> <a href="###">微信</a> </li>
+        <li class="left"><span class="spe">|</span> </li>
+        <li id="top-wb" class="left"> <a href="###">微博</a> </li>
+      </ul>
+    </div>
+    <div class="right">
+      <ul>
+        <li class="left light"> <a href="###">登录</a> </li>
+        <li class="left"> <span class="spe">|</span> </li>
+        <li class="left"> <a href="###">帮助中心</a> </li>
+        <li class="left"> <span class="spe">|</span> </li>
+        <li class="left"> <a href="###">帮助中心</a> </li>
+        <li class="left"> <span class="spe">|</span> </li>
+        <li class="left"> <a href="###">帮助中心</a> </li>
+      </ul>
+    </div>
+    <div class="clr"></div>
+  </div>
+</div>
+<div id="logo-wrap">
+  <div id="logo" class="center-1000">
+    <div id="logo_img" class="left">
+      <div class="left"><img src="img/logo.png" class="left" width="137" height="57" /> </div>
+      <div class="left" id="logo-city">
+        <div id="cur-city"> <span>深圳</span> <i id="city-dropdown"></i>
+          <div id="city-list">
+            <div class="city-row"> <span class="city-letter">A</span> <a href="###" class="city">城市A</a> <a href="###" class="city">城市B</a> <a href="###" class="city">城市C</a> <a href="###" class="city">城市A</a> <a href="###" class="city">城市B</a> <a href="###" class="city">城市C</a> <a href="###" class="city">城市A</a> <a href="###" class="city">城市B</a> <a href="###" class="city">城市C</a> <a href="###" class="city">城市A</a> <a href="###" class="city">城市B</a> <a href="###" class="city">城市C</a> <a href="###" class="city">城市A</a> <a href="###" class="city">城市B</a> <a href="###" class="city">城市C</a> </div>
+            <div class="city-row"> <span class="city-letter">B - D</span> <a href="###" class="city">城市A</a> <a href="###" class="city">城市B</a> <a href="###" class="city">城市C</a> <a href="###" class="city">城市A</a> <a href="###" class="city">城市B</a> <a href="###" class="city">城市C</a> <a href="###" class="city">城市A</a> <a href="###" class="city">城市B</a> <a href="###" class="city">城市C</a> <a href="###" class="city">城市A</a> <a href="###" class="city">城市B</a> <a href="###" class="city">城市C</a> <a href="###" class="city">城市A</a> <a href="###" class="city">城市B</a> <a href="###" class="city">城市C</a> </div>
+          </div>
+        </div>
+      </div>
+      <div class="clr"></div>
+    </div>
+    <div id="logo_search" class="left">
+      <input class="left" type="text" placeholder="请输入场馆名称或地址" />
+      <span class="left bg-org">搜 索</span> </div>
+    <div id="logo_contactus" class="left">
+      <div>400-888-888-8</div>
+    </div>
+    <div class="clr"></div>
+  </div>
+</div>
+<div id="menu">
+  <div class="bg-blue"></div>
+  <div class="center-1000">
+    <ul>
+      <li class="left" id="cur-project"> <span class="bg-org"> 足球
+        <div> <a id="ym" class="item ym" href="##">羽毛球</a> <span class="spe"></span> <a id="wq" class="item ym" href="##">网球</a> <span class="spe"></span> <a id="yy" class="item ym" href="##">游泳</a> <span class="spe"></span> <a id="nq" class="item ym" href="##">篮球</a> <span class="spe"></span> <a id="pp" class="item ym" href="##">乒乓球</a> </div>
+        </span> </li>
+      <li class="left menu"> <span>场馆预订</span> </li>
+      <li class="left menu"> <a href="###">球队列表</a> </li>
+      <li class="left menu"> <a href="###">培训中心</a> </li>
+    </ul>
+  </div>
+</div>
+<div id="content" class="center-1000">
+  <div id="order_wrap">
+    <div class="left menus">
+      <div class="menu"><span class="cur">用户信息</span></div>
+      <div class="menu"><a href="myorder.html">我的订单</a></div>
+      <div class="menu"><a href="myfav.html">我的收藏</a></div>
+      <div class="menu"><a href="mycomments.html">我的评价</a></div>
+    </div>
+    <div class="right item_list">
+      <div class="baseinfo-group">
+        <label class="baseinfo-label">手机号码：</label>
+        <div class="baseinfo-content">
+          <div class="edit-able"><strong>159*****545</strong><a href="mobile" class="cl-blue">修改</a></div>
+          <span class="new_phone input-text none"><input type="text" id="mobile" class="input" maxlength="11"><a href="#" data-role="edit-mobile" class="edit-cancel cl-blue">取消修改</a></span>
+          <button class="btn send-sms none" id="sendMobileCode" type="button">发送验证码</button>
+        </div>
+      </div>
+      <div id="phone_code" class="baseinfo-group none">
+        <label class="baseinfo-label">手机验证码：</label>
+        <div class="baseinfo-content">
+            <span class="input-text"><input type="text" id="sms_code" class="input"></span><a href="sms_code" class="cl-blue">保存</a>
+        </div>
+      </div>
+      <div class="baseinfo-group">
+        <label class="baseinfo-label">邮箱：</label>
+        <div class="baseinfo-content">
+          <div class="edit-able" style="display: block;"><strong>ea****b@gmail.com</strong><a href="mobile" class="cl-blue">修改</a></div>
+          <span class="new_email input-text none"><input type="text" id="email" class="input"><a href="#" class="edit-cancel cl-blue">取消修改</a></span>
+          <button class="btn send-email none" id="sendEmailCode" type="button">发送验证邮件</button>
+        </div>
+      </div>
+      <div id="email_code" class="baseinfo-group none">
+        <label class="baseinfo-label">邮箱验证码：</label>
+        <div class="baseinfo-content">
+            <span class="input-text"><input type="text" id="email_code" class="input"></span><a href="email_code" class="cl-blue">保存</a>
+        </div>
+      </div>
+      <div class="baseinfo-group">
+        <label class="baseinfo-label">用户名：</label>
+        <div class="baseinfo-content">
+          <div class="edit-able" style="display: block;"><strong>我的名字叫用户名</strong><a href="mobile" class="cl-blue">修改</a></div>
+          <span class="new_name input-text none"><input type="text" id="name" class="input"><a href="#" class="edit-cancel cl-blue">取消修改</a></span>
+          <button class="btn save-name none" id="saveName" type="button">保存</button>
+        </div>
+      </div>
+      <div class="baseinfo-group">
+        <label class="baseinfo-label">用户密码</label>
+        <div class="baseinfo-content">
+          <div class="edit-able" style="display: block;"><a href="mobile" class="cl-blue">修改</a></div>
+          <span class="new_pwd input-text none"><input type="password" id="pwd" class="input"><a href="#" class="edit-cancel cl-blue">取消修改</a></span>
+          <button class="btn save-pwd none" id="savePwd" type="button">保存</button>
+        </div>
+      </div>
+    </div>
+    <div class="clr"></div>
+  </div>
+</div>
+<div id="footer">
+  <div id="footer-wrap" class="center-1000">
+    <div id="com-info" class="left">
+      <div class="left"> <i></i> </div>
+      <div class="left"> <span>公司信息</span> <a href="###">关于我们</a> <a href="###">加入我们</a> <a href="###">联系我们</a> </div>
+      <div class="clr"></div>
+    </div>
+    <div id="user-help" class="left">
+      <div class="left"> <i></i> </div>
+      <div class="left"> <span>用户帮助</span> <a href="###">帮助中心</a> <a href="###">预订流程</a> </div>
+      <div class="clr"></div>
+    </div>
+    <div id="bu-coo" class="left">
+      <div class="left"> <i></i> </div>
+      <div class="left"> <span>商家合作</span> <a href="###">商家后台</a> <a href="###">工作人员入口</a> </div>
+      <div class="clr"></div>
+    </div>
+    <div id="contact-us" class="left">
+      <div class="left"> <i></i> </div>
+      <div class="left"> <span>工作时间</span> <span class="a">周一至周六 9:00-21:00</span> <span class="a">客服电话 4008-888-888</span> </div>
+      <div class="clr"></div>
+    </div>
+    <div class="clr"></div>
+  </div>
+  <div id="copyright"> 粤ICP备1463246876号 ©2014 运动人生 使用本网站即表示接受运动人生用户协议 </div>
+</div>
+</body>
+<script src="../Public/Common/js/jquery-1.11.1.min.js"></script>
+<script src="../Public/Common/js/jquery.raty.js"></script>
+<script src="../Public/Common/js/front-core.js"></script>
+<script type="text/javascript">
+$(function() {
+    $('.star_rate').raty({
+        starHalf: './img/star-half.png', // The name of the half star image.
+        starOff: './img/star-off.png', // Name of the star image off.
+        starOn: './img/star-on.png',
+        score: function() {
+            var v = $(this).attr('data-score');
+            return v?v:0;
+        },
+    });
+    $('.cl-blue').click(function() {
+        $('body#order .item_list .comment').not($(this).next().next()).hide();
+        var e = $(this).next().next();
+        if (e.hasClass('comment')) e.toggle();
+    });
+
+    $('.comment-total').delegate('img,.right a', 'click', function(){
+        var text = $(this).parent().parent().find('.comment-text');
+        if (text.size() > 0) {
+            text.hide();
+        }
+        $(this).parent().parent().next().show();
+    })
+});
+</script>
+</html>

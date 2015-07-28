@@ -1,0 +1,63 @@
+<div class="toolbar cf">
+	<div class="tool_date cf">
+		<div class="title cf">
+			<div class="more form" id="ver_keys">			
+				<form id="seachForm" class="fl">
+					用户名: 
+					<input type="text" name="user_name" id="uid" placeholder="精确查找-用户:值" style="width:85px;"/>
+					编号：
+					<input type="text" name="order_no" placeholder="精确查找- 编号:值" style="width:95px;"/>
+					订单金额:
+					<input type='text' name="min_money" style="width:55px;"/>&nbsp;-&nbsp;
+					<input type='text' name="max_money" style="width:55px;"/>
+					下单时间:
+					<input type='text' name="min_date" onclick="WdatePicker()" style="width:75px;"/>&nbsp;-&nbsp;
+					<input type='text' name="max_date" onclick="WdatePicker()" style="width:75px;"/>
+					<input type="button"  class="btn" value="搜索" onclick="search()">
+				</form>
+				<input type="button" id="browseUnfold" onclick="swichBrowseType(this)" value="展开" class="btn" style="margin-left:5px;" />
+			</div>
+		</div>
+	</div>
+</div>		
+<!-- -->
+<div id="table_column" class="column cf datashow">
+	<div id="listTabs">
+		<ul>
+			{foreach from=$tabsMenu key=key item=val}
+				<li><a href="#tabs-{$key}" onclick="loadData({$val.status})">{$val.menu_name}(<b>{$arrCounts.{$val.status}|default:0}</b>条)</a></li>
+			{/foreach}	
+		</ul>
+		{foreach from=$tabsMenu key=key item=val}
+			<div id="tabs-{$key}">
+				<table  width="80%" cellpadding="5" cellspacing="3" class="contab">
+					<thead>
+						<tr style="font-weight: bold;text-align: center; background-color:#F7F7F7">
+							<td style="height:28px;"><input type="checkbox" ></td>
+							<td><a href="javascript:;" onclick="listOrderBy(this)" by="desc" col="order_no">编号</a></td>
+							<td><a href="javascript:;" onclick="listOrderBy(this)" by="desc" col="user_id">用户</a></td>
+							<td>电话</td>
+							<td><a href="javascript:;" onclick="listOrderBy(this)" by="desc" col="order_money">订单金额</a></td>
+							<td><a href="javascript:;" onclick="listOrderBy(this)" by="desc" col="gym_id">场馆</a></td>
+							<td><a href="javascript:;" onclick="listOrderBy(this)" by="desc" col="pro_id">运动类型</a></td>
+							<td><a href="javascript:;" onclick="listOrderBy(this)" by="desc" col="pay_status">支付状态</a></td>
+							<td><a href="javascript:;" onclick="listOrderBy(this)" by="desc" col="status">使用状态</a></td>
+							<td><a href="javascript:;" onclick="listOrderBy(this)" by="desc" col="create_time">下单时间</a></td>
+							<td>操作</td>
+						</tr>
+					</thead>
+					<tbody class="dataTab" id="load_data{$val.status}"></tbody>
+				</table>
+			</div>
+		{/foreach}	
+		<div id="Pagination" class="page"></div>
+	</div>	
+</div>
+{literal}
+<script type="text/javascript">  
+	$LAB.script('/Admin/js/Order/order.js?'+ LC._version)
+		.wait(function() {
+			$("#listTabs").tabs({});
+	    });
+</script>
+{/literal}

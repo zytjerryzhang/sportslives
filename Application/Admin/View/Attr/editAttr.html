@@ -1,0 +1,56 @@
+<div class="validateTips" id="menuTips" style="display:none;"></div>
+<form name="categoryForm" id="editForm" method="post" action="" target="_blank">
+    <div class="bill">
+        <div class="bill-item">
+            <div style="width: 26%;" class="bill-item-left">属性名：</div>
+            <div style="width: 70%;" class="bill-item-right">
+                <input type="text" required name="name" value="{$data.name}" style="width:243px;" />
+                <input type="hidden" name="id" value="{$data.id}" />
+            </div>
+            <div class="clr" />
+        </div>
+        <div class="bill-item">
+            <div style="width: 26%;" class="bill-item-left">属性类型：</div>
+            <div style="width: 70%;" class="bill-item-right">
+                <select name="type">
+                    <option <if condition="$data.type eq 0">selected</if> value="0" >文本框</option>
+                    <option <if condition="$data.type eq 1">selected</if> value="1" >多选项</option>
+                    <option <if condition="$data.type eq 2">selected</if> value="2" >单选项</option>
+                </select>
+            </div>
+            <div class="clr" />
+        </div>
+        <div class="bill-item">
+            <div style="width: 26%;" class="bill-item-left">属性值：</div>
+            <div style="width: 70%;" class="bill-item-right">
+                <input type="text" name="value" value="{$data.value}" onblur="this.value=this.value.replace(/，/g,',');" style="width:243px;" />
+            </div>
+            <div class="clr" />
+        </div>
+        <div class="bill-item">
+            <div style="width: 23%;float:left;" class="bill-item-left">公共属性：</div>
+            <div style="width: 18%;float:left;" class="bill-item-right">
+                <select name="is_common">
+                    <option <if condition="$data.is_common eq 1">selected</if> value="1">是</option>
+                    <option <if condition="$data.is_common eq 0">selected</if> value="0">否</option>
+                </select>
+            </div>
+            <div style="width: 13%;float:left;" class="bill-item-left">搜索条件：</div>
+            <div style="width: 18%;float:left;" class="bill-item-right">
+                <select name="is_search">
+                    <option <if condition="$data.is_search eq 1">selected</if> value="1">是</option>
+                    <option <if condition="$data.is_search eq 0">selected</if> value="0">否</option>
+                </select>
+            </div>
+            <div style="width: 8%;float:left;" class="bill-item-left">状态：</div>
+            <div style="width: 8%;float:left;" class="bill-item-right">
+                <select name="status">
+                    <option <if condition="$data.status eq 0">selected</if> value="0">禁用</option>
+                    <option <if condition="$data.status eq 1">selected</if> value="1">启用</option>
+                </select>
+            </div>
+            <div class="clr" />
+        </div>
+    </div>
+    </div>
+</form>

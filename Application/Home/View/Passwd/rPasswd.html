@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head lang="ch">
+<meta charset="UTF-8">
+<title>运动汇登陆</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<link href="/Home/css/style.css" rel="stylesheet">
+</head>
+<body id="login">
+<div id="logo-wrap">
+  <div id="logo" class="center-1000">
+    <div class="left">
+      <div id="logo_img" class="left"><a href="/"><img src="/Home/img/logo.png" class="left" width="137" height="57" /></a></div>
+      <div class="left" id="title">
+        <div>重置运动人生帐号密码</div>
+      </div>
+      <div class="clr"></div>
+    </div>
+    <div id="no-count" class="right"> <span>没有运动人生帐号？</span> <a href="{:U('Reg/reg','','html')}" class="bg-blue">注册</a> </div>
+    <div class="clr"></div>
+  </div>
+</div>
+<div id="login-wrap">
+  <div id="login-bg-top"></div>
+  <div id="login-bg-bottom"></div>
+  <div id="login-bg-content">
+  	<form id="login" action="{:U('Passwd/rPasswd','','html')}" method="post">
+      <div class="login-desc">重置运动人生帐号密码</div>
+      <input type="hidden" name="token" value="" />
+      <input type="hidden" name="mobile" value="{$mobile}" />
+      <input type="hidden" name="username" value="{$username}" />
+      <div style="display:none"></div>
+      <div class="form-field form-field--icon">
+        <i class="icon icon-user"></i>
+        <input type="password" id="login-password" class="f-text" name="passwd" placeholder="密码">
+      </div>
+      <div class="form-field form-field--icon">
+        <i class="icon icon-password"></i>
+        <input type="password" id="login-password" class="f-text" name="password" placeholder="确认密码">
+      </div>
+      <div class="form-field form-field--ops">
+        <input type="submit" class="btn" name="commit" value="重置密码" />
+      </div>
+    </form>
+    <div class="promotion-banner"><img alt="【城市/多城市/全国】专题名称" src="/Home/img/login-banner.jpg" width="342" height="303" /></div>
+  </div>
+</div>
+<include file="Public:footer"/>
+</html>

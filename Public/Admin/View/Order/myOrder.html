@@ -1,0 +1,92 @@
+<div class="toolbar cf">
+	<div class="tool_date cf">
+		<div class="title cf">
+			<div class="more form" id="ver_keys">			
+				<form id="lcsubmit" battr=1  burl='Order/myOrder' page="Order/myOrder" class="fl">
+					订单用户：
+					<input type='text' name="user_name" style="width:75px;"/>
+					电话:
+					<input type='text' name="mobile" style="width:75px;"/>
+					订单金额:
+					<input type='text' name="min_money" style="width:55px;"/>&nbsp;-&nbsp;
+					<input type='text' name="max_money" style="width:55px;"/>
+					创建时间: 
+					<input type="text" name="start_date" onclick="WdatePicker()" style="width:75px;"/>&nbsp;-&nbsp;
+					<input type="text" name="end_date" onclick="WdatePicker()" style="width:75px;"/>
+					<input type="submit" class="btn" value="搜索">
+					<!--<input type="hidden" name="browseType" id="browseType" value="unfold">-->
+					<input type="submit" value="展开" class="btn"  id="browseUnfold"/>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- -->
+<div id="table_column" class="column cf datashow">
+	<div id="dataTable" class="dataTable">
+		<table  width="80%" cellpadding="5" cellspacing="3" class="contab">
+				<thead>
+					<tr>
+						<th>用户</th>
+						<th>电话</th>
+						<th>场馆名称</th>
+						<th>运动类型</th>
+						<th>订单号</th>
+						<th>订单金额</th>	
+						<th>订单状态</th>
+						<th>支付状态</th>
+						<th>创建时间</th>
+						<th>操作</th>
+					</tr>
+				</thead>		
+				<tbody class="dataTab">
+					{foreach from=$aData key=key item=val}
+					<tr {if $key%2 != 0} class="divGray" {/if}>
+						<td align="center">{$val.username}</td>
+						<td align="center">{$val.mobile}</td>
+						<td align="center">{$val.name}</td>
+						<td align="center">{$val.pro_name}</td>
+						<td align="center">{$val.order_no}</td>
+						<td align="center">{$val.order_money/100}</td>
+						<td align="center">{$val.status_name}</td>	
+						<td align="center">{$val.pay_s_name}</td>
+						<td>{$val.create_time}</td>
+						<td align="center">--</td>
+					</tr>
+					{if $val.item_list}
+						{foreach from=$val.item_list key=k item=v}
+						<tr style="height:28px;">
+							<td align="center" title="场地名称">{$v.site_name}</td>
+							<td align="center" title="预定人数">{$v.order_number}&nbsp;</td>
+							<td align="center" title="日期">{$v.date}&nbsp;</td>
+							<td align="center" title="开始时间">{$v.begin_time}&nbsp;</td>
+							<td align="center" title="结束时间">{$v.end_time}&nbsp;</td>
+							<td align="center" title="消费密码">{$v.pwd_no}&nbsp;</td>
+							<td align="center" title="券码使用状态">{if $v.pwd_status==1}已使用{/else}未使用{/if}&nbsp;</td>
+							<td align="center" title="价格">{$v.price/100}&nbsp;</td>
+							<td align="center" title="创建时间">{$v.create_time}&nbsp;</td>
+							<td align="center" title="">空缺&nbsp;</td>
+						</tr>
+						{/foreach}
+					{/if}
+				{/foreach}
+			</tbody>
+		</table>
+	</div>
+	<div class="page">{$pagelink}</div>	
+</div>
+<!-- end -->
+{literal}
+<script type="text/javascript">  
+//浏览风格
+$("#browseUnfold").click(function(){
+	if($(this).val()=='收起'){
+		$("#lcsubmit").attr('burl','Order/myOrder/browseType/fold');
+		$(this).val('展开');
+	} else {
+		$(this).val('收起');
+		$("#lcsubmit").attr('burl','Order/myOrder/browseType/unfold');
+	}
+});
+</script>
+{/literal}

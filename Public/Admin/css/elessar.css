@@ -1,0 +1,178 @@
+.progress .bar {
+    width: 0%;
+    height: 100%;
+    color: #FFF;
+    float: left;
+    font-size: 12px;
+    text-align: center;
+    background-color: #0E90D2;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: width 0.6s ease;
+    -moz-transition: width 0.6s ease;
+    -o-transition: width 0.6s ease;
+    transition: width 0.6s ease;
+}
+.elessar-handle {
+    display: block;
+    background: black;
+    height: 100%;
+    width: 1px;
+    cursor: ew-resize;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+}
+.elessar-handle:first-child {
+    left: 0;
+}
+.elessar-handle:last-child {
+    right: 0;
+}
+.elessar-vertical .elessar-handle {
+    height: 5px;
+    width: 100%;
+    left: 0;
+    right: 0;
+    top: auto;
+    bottom: auto;
+}
+.elessar-vertical .elessar-handle:first-child {
+    top: 0;
+}
+.elessar-vertical .elessar-handle:last-child {
+    bottom: 0;
+}
+.elessar-indicator {
+    position: absolute;
+    background: black;
+    border-color: white;
+    border-style: solid;
+    border-width: 0 1px;
+    width: 2px;
+    height: 100%;
+    z-index: 15;
+}
+.elessar-vertical .elessar-indicator {
+    width: 100%;
+    height: 2px;
+}
+.elessar-range {
+    position: absolute;
+    cursor: -webkit-grab;
+    cursor: -moz-grab;
+    cursor: grab;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    background: blue;
+    width: 0;
+    z-index: 10;
+}
+.elessar-vertical .elessar-range {
+    width: auto;
+    height: 0;
+}
+.elessar-label {
+    position: absolute;
+    z-index: 5;
+    pointer-events: none;
+    border-left: 1px solid #999;
+    padding-left: 10px;
+}
+.elessar-readonly {
+    opacity: 0.6;
+    cursor: default !important;
+}
+.elessar-phantom {
+    background-color: transparent;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    cursor: pointer !important;
+}
+.elessar-rangebar {
+    position: relative;
+    height: 30px;
+    line-height: 30px;
+    background: #F5F5F5;
+}
+.elessar-delete-confirm {
+    background: red;
+}
+body.elessar-resizing,
+body.elessar-dragging {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+body.elessar-resizing,
+body.elessar-resizing .bar,
+body.elessar-resizing .handle {
+    cursor: ew-resize !important;
+}
+body.elessar-dragging,
+body.elessar-dragging .bar,
+body.elessar-dragging .handle {
+    cursor: -webkit-grabbing !important;
+    cursor: -moz-grabbing !important;
+    cursor: grabbing !important;
+}
+.container2,
+#price_wrap {
+    padding: 0;
+}
+#site_wrap {
+    position: initial;
+    display:none;
+}
+#site_wrap td {
+    padding: 0;
+    text-align: center;
+}
+#site_wrap .t_stay {
+    background: #F5F5F5;
+}
+#price_wrap table td {
+    border: 1px solid #F5F5F5;
+}
+#price_wrap tr {
+    background: #F5F5F5;
+}
+#price_wrap .price_input {
+    width: 99%;
+    padding: 0;
+}
+#price_wrap input {
+    text-align: center;
+}
+.tab-tit {
+    display:none;
+}
+.tab-tit .f22 {
+    font-size: 16px;
+}
+.tab-tit li {
+    float: left;
+    text-align: center;
+    background: #ededed;
+    border-bottom: 0;
+    margin:0 2px 0 0;
+    line-height: 30px;
+    cursor:pointer;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+.tab-tit li.on {
+    background:#FD6323;
+    cursor:auto;
+    /*border-color: #6adff9;*/
+}
+.tab-tit li.on a {
+    color: #fff;
+    cursor:auto;
+}
+.edit_mode_label{display:none;}

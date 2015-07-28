@@ -1,0 +1,34 @@
+<div class="bill">
+    <foreach name="attr" item="val">
+        <label style="margin-right:20px;" title="{$val.value}">
+            <if condition="$val.is_common eq 1">
+                <input type="checkbox" checked disabled value="{$val.id}" />
+                <input type="hidden" checked class="pro_attr_id" value="{$val.id}" />
+                <else />
+                <input class="pro_attr_id" type="checkbox" <if condition="$val.checked eq true">checked</if> data-id="{$val.id}" value="{$val.id}" />
+            </if>
+            {$val.name}
+        </label>
+    </foreach>
+</div>
+<div class="validateTips" id="menuTips" style="display:none;"></div>
+<script type="text/javascript">
+    $('.pro_attr_id').click(function() {
+        var data = {
+            id: {$Think.get.id},
+            attr_ids: ''
+        };
+        $('.pro_attr_id:checked, .pro_attr_id:hidden').each(function() {
+            data.attr_ids += ',' + this.value;
+        })
+        data.attr_ids = data.attr_ids.substr(1)
+        LC.loadData('Pro/saveAttr', data, function(data) {
+            if (data.status != 1) {
+                LCPAGE.msg('menuTips', data.info.toString());
+                return;
+            }
+            LCPAGE.msg('menuTips', "数据已保存!");
+        })
+        return true;
+    })
+</script>

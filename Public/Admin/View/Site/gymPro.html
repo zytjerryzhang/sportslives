@@ -1,0 +1,64 @@
+<div class="tool_date cf">
+	<div class="title cf">
+		<div class="more form" id="ver_keys">			
+			<form id="lcsubmit" battr=1  burl='Site/gymPro' page="Site/gymPro" class="fl">
+				<input type="text" name="keywords" placeholder="场馆名称或项目名称"/>
+			    <input type="hidden" value="保存" burl="Site/saveRecommend" class="saveInfo btn"/>
+				<input type="submit"  class="btn" value="搜索">
+			</form>
+		</div>
+	</div>
+</div>
+<!-- -->
+<div id="table_column" class="column cf datashow">
+	<div id="dataTable" class="dataTable">
+		<table  width="80%" cellpadding="5" cellspacing="3" class="contab">
+				<thead>
+					<tr>
+                        <th width="1%">
+                            <input type="checkbox" class="check" isc=2 ></th>
+						<th>ID</th>
+						<th>场馆名</th>
+						<th>项目名</th>
+						<th>推荐</th>
+						<th>操作</th>
+						<th>场地管理</th>
+					</tr>
+				</thead>		
+				<tbody class="dataTab">
+					{foreach from=$aData key=key item=val}
+					<tr {if $key%2 != 0} class="divGray" {/if}>
+						<td align="center">
+							<input disabled="disabled" type="hidden" name="id" value={$val.id} ><!-- 有删除功能的主键放在首个td下 -->
+							<input type="checkbox" name='ids[]' value="{$val.id}">
+						</td>
+                        <td align="center">{$val.id}</td>
+                        <td align="center">{$val.gname}</td>
+                        <td align="center">{$val.pname}</td>
+						<td align="center">
+							<input disabled="disabled" type="text" name="is_recommend" value="{$val.is_recommend}" style="width:50px;"/>
+						</td>
+						<td align="center">
+                            <a class="editTr" isedit="0">编辑</a>
+						</td>
+						<td align="center">
+                            <a href="?#2-22" onclick="window.pageParam.pro_id={$val.pid};window.pageParam.gym_id={$val.gid};return true;">场地管理</a>{if 0}<a href="/uploads/gym/{$v.name}" target="_blank" class="preview1"></a>{/if} 
+						</td>
+					</tr>
+				{/foreach}
+			</tbody>
+		</table>
+	</div>
+	<div class="page">{$pagelink}</div>	
+</div>	
+<!-- end -->
+<div id="editFormDialog" style="display: none;" >
+</div>
+{literal}
+<!--script type="text/javascript" src="Common/js/soso.js"></script-->
+<script type="text/javascript">  
+    window.pageFunc = function () {
+    }
+    pageFunc();
+</script>
+{/literal}

@@ -1,0 +1,74 @@
+<div class="toolbar cf">
+	<div class="tool_date cf">
+		<div class="title cf">
+			<div class="more form" id="ver_keys">			
+				<form id="lcsubmit" battr=1  burl='Pos/posRight' page="Pos/posRight" class="fl">
+					<label>关键字搜索:  </label>
+					<input type="text" name="keywords" placeholder="精确查找- 英文名:值"/>
+					<input type="submit"  class="btn" value="搜索">
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- -->
+<div id="table_column" class="column cf datashow">
+	<div id="dataTable" class="dataTable">
+		<table  width="80%" cellpadding="5" cellspacing="3" class="contab">
+			<thead>
+					<tr>
+						<th>序号</th>
+						<th>职位名称</th>
+						<th>所属部门</th>	
+						<th>职位级别</th>
+						<th>状态</th>
+						<th>操作</th>
+					</tr>
+				</thead>		
+				<tbody class="dataTab">
+					{foreach from=$aData key=key item=val}
+					<tr {if $key%2 != 0} class="divGray" {/if}>
+						<td>{$key+1}</td>
+						<td><input disabled="disabled" type="hidden" name="posid" value={$val.posid} ><input disabled="disabled" type="text" name="name" value="{$val.name}"/></td>
+						<td>
+							<select name="deptid" disabled="disabled">
+								{foreach from=$dept_data item=v}
+									<option value="{$v.id}" {if $v.id eq $val.dept_id} selected="selected"{/if}>{$v.name}</option>
+								{/foreach}
+							</select>	
+						</td>
+						<td>
+							<select name="level" disabled="disabled">
+								<option {if $val.level == 1}selected="selected"{/if} value=1 >总经理</option>
+								<option {if $val.level == 2}selected="selected"{/if} value=2 >副总经理</option>
+								<option {if $val.level == 3}selected="selected"{/if} value=3 >主管</option>
+								<option {if $val.level == 4}selected="selected"{/if} value=4 >经理</option>
+								<option {if $val.level == 5}selected="selected"{/if} value=5 >副经理</option>
+								<option {if $val.level == 6}selected="selected"{/if} value=6 >组长</option>
+								<option {if $val.level == 7}selected="selected"{/if} value=7 >普通员工</option>															
+							</select>
+						</td>
+						<td>
+							<select name="status" disabled="disabled">
+								<option {if $val.status == 1}selected="selected"{/if} value=1 >正常</option>
+								<option {if $val.status == 0}selected="selected"{/if} value=0 >禁用</option>															
+							</select>
+						</td>
+						<td>
+							{if $permission.'Pos/setPosRight'}	
+								<span><a href="javascript:void(0)" onclick="editPosRight({$val.id},'{$val.name}')">分配权限</a></span>
+							{/if}
+						</td>
+					</tr>
+				{/foreach}
+			</tbody>
+		</table>
+	</div>
+	<div class="page">{$pagelink}</div>	
+</div>	
+<!-- end -->
+{literal}
+<script type="text/javascript">  
+	$LAB.script('/Admin/js/Pos/posRight.js?'+ LC._version);
+</script>
+{/literal}

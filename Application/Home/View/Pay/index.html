@@ -1,0 +1,119 @@
+<include file="Public:header" />
+<div id="order-follow" class="center-1000">
+  <div id="follow_desc"> <span>选择场馆<i></i></span> <span>选择场次<i></i></span> <span class="cur">确认支付<i></i></span> <span>预定成功<i></i></span> </div>
+  <div id="follow_bar"> </div>
+  <div id="follow_cur" class="step3"></div>
+</div>
+<div id="content" class="center-1000">
+  <div class="payBox_body">
+    <div class="payBox_body_left left">
+      <ol>
+          <li><em>订单号：</em>{$orderNo}</li>
+          <li><em>预订项目：</em>{$proName}<em class="ml30">预订日期：</em>{$date.d}（周{$date.w}） </li>
+          <li><em>场馆名称：</em>{$gymName}</li>
+        <li class="ui_media"> <em class="ui_pic" style="margin:0;"> 预订场次：</em>
+        <p class="ui_text">
+        <foreach name="siteInfo" item="v">
+        <span class="changci">{$v.b}-{$v.e} {$v.n} {$v.p} 元 <if condition="$v['o'] gt 1">* {$v.o}</if></span>
+        </foreach>
+        </p>
+        </li>
+        <li class="mt10"><b class="fs14">应付金额：</b><span class="ui_price"><b class="cl-org">{$orderPrice} </b></span>元 </li>
+        <li class="changeMobile">接收手机号码：
+          <label for="mobile"><b class="fs16 c333" id="mobileText">15027099221</b>
+            <input type="text" maxlength="11" style="width:100px;padding:0 5px;" name="mobile" id="mobile" class="text none">
+            <a href="javascript:getOrderMobile()" class="ml5 mr5 cSport" id="elGet">修改</a> <a href="javascript:modOrderMobile()" class="cl-blue ml5 mr5 none" id="elSave">保存</a>(取票短信可能会被手机软件拦截，请注意！)<br>
+          </label>
+        </li>
+      </ol>
+    </div>
+    <div class="payBox_body_right left">
+      <div class="limitTimedetail inner">
+        <p><span class="fs14 cf60">请在15分钟内完成付款</span>，超时系统将自动释放已选场次，支付中如遇到问题请致电：<b>4000-406-506</b></p>
+        <div class="limitTime">
+          <h3 class="fs14">剩余支付时间：</h3>
+          <p class="fs22" id="CountMsg"><b id="RemainM"><php>echo intval($reminds/60);</php></b><b>分</b><b id="RemainS">{$reminds%60}</b><b>秒</b></p>
+        </div>
+      </div>
+    </div>
+    <div class="clr"></div>
+  </div>
+  <div id="pay_method">
+  	<form action="{$payUrl}" method="post">
+  		<foreach name="rchg" item="vo">
+            <input type='hidden' name='{$key}' value="{$vo}" /><br/>
+        </foreach>
+	    <ul id="pay_method_wrap">
+	      <li class="left cur"><a href="#wy">网银</a> </li>
+	      <li class="left"><a href="#zfb">支付宝</a> </li>
+	      <div class="clr"></div>
+	    </ul>
+	    <ul class="bank-logo" id="wy">
+	      <foreach name="bankList" item="vo">
+	      	<li>
+	        	<label class="">
+                    <input type="radio" name="payParamBank" id="{$vo.en_name|strtolower}" value="{$vo.pmode_id}" />
+	          		<span title="{$vo.cn_name}" class="bankicon ic-{$vo.en_name|strtolower}">{$vo.cn_name}</span>
+	          	</label>
+	      	</li>
+	      </foreach>
+	      <div class="clr"></div>
+	    </ul>
+	    <div id="orderPay">
+	        <b class="fs14">应付金额：</b>
+	        <span class="ui_price"><b class="cl-org">{$orderPrice} </b></span>元
+	        <br />
+	        <br />
+	        <button type="submit" class="once-again bg-org">去付款</button>
+	        <!--<span class="once-again bg-org">去付款</span>-->
+	    </div>
+	  </form>
+  </div>
+</div>
+<include file="Public:footer" />
+<script type="text/javascript">
+function getOrderMobile() {
+    $('#mobile').val($('#mobileText').html());
+    $('#mobile,#elSave').show();
+    $('#mobileText,#elGet').hide();
+}
+function modOrderMobile() {
+    $('#mobileText').html($('#mobile').val());
+    $('#mobile,#elSave').hide();
+    $('#mobileText,#elGet').show();
+}
+$(function() {
+    var min = document.getElementById('RemainM'),
+        sec = document.getElementById('RemainS');
+    totaltime = parseInt(min.innerHTML*60)+parseInt(sec.innerHTML);
+    var interval = setInterval(function() {
+        var time = --totaltime;
+        min.innerHTML = "" + parseInt(time/60);
+        sec.innerHTML = "" + (time%60);
+        if (time === 0) {
+            location.href = location.href + '?ref=' + encodeURIComponent(document.referrer);
+            clearInterval(interval);
+        };
+    }, 1000);
+
+    $('#pay_method_wrap li a').click(function() {
+        var selector = '';
+        cur_selector = $(this).attr('href');
+        $('#pay_method_wrap li a').each(function() {
+            var se = $(this).attr('href');
+            if (se == cur_selector) {
+                $(this).parent().addClass('cur');
+                return;
+            } else {
+                $(this).parent().removeClass('cur');
+                selector = se;
+            }
+        })
+
+        $(selector).hide();
+        $(cur_selector).show();
+        return false;
+    })
+});
+</script>
+</html>

@@ -1,0 +1,322 @@
+header,
+nav,
+article,
+footer {
+    margin: auto;
+    width: 760px;
+    display: block;
+    position: relative
+}
+body,
+ul,
+li,
+dl,
+dt,
+dd,
+h3,
+h4,
+p,
+form,
+table,
+tr,
+td {
+    margin: 0;
+    padding: 0;
+}
+body,
+input,
+textarea,
+select {
+    font: 12px/1.5 Microsoft YaHei, Tahoma, Arial, Helvetica, Geneva, sans-serif;
+    color: #333;
+}
+ul {
+    list-style: none;
+}
+input,
+textarea,
+select {
+    resize: none;
+}
+table {
+    width: 100%;
+}
+a {
+    text-decoration: none;
+    outline: none;
+    blr: expression(this.onFocus=this.blur());
+    color: #3B5998;
+    cursor: pointer
+}
+a:hover {
+    text-decoration: underline;
+}
+img {
+    border: none;
+    vertical-align: middle;
+}
+.none {
+    display: none;
+}
+.cl:before,
+.cl:after {
+    content: "";
+    display: table;
+}
+.cl:after {
+    clear: both;
+}
+.cl {
+    zoom: 1;
+}
+/*box width*/
+
+.w980 {
+    width: 980px;
+}
+.w970 {
+    width: 970px;
+}
+.w760 {
+    width: 760px;
+}
+.w210 {
+    width: 210px;
+}
+/*layout*/
+
+.ma {
+    margin: auto;
+}
+.fl {
+    float: left;
+}
+.fr {
+    float: right;
+}
+.pr {
+    position: relative;
+}
+.pa {
+    position: absolute;
+}
+.m5 {
+    margin: 5px;
+}
+.m10 {
+    margin: 10px;
+}
+.m20 {
+    margin: 20px;
+}
+.p3 {
+    padding: 3px;
+}
+.p5 {
+    padding: 5px;
+}
+.p10 {
+    padding: 10px;
+}
+.p20 {
+    padding: 20px;
+}
+/*text & font*/
+
+.tc {
+    text-align: center;
+}
+.tl {
+    text-align: left;
+}
+.tr {
+    text-align: right;
+}
+.f12 {
+    font-size: 12px;
+}
+.f14 {
+    font-size: 14px;
+}
+.f16 {
+    font-size: 16px;
+}
+.fb {
+    font-weight: bold;
+}
+.red {
+    color: #f00 !important;
+}
+.green {
+    color: #0f0;
+}
+.blue {
+    color: #00f;
+}
+.myClear {
+    clear: both
+}
+.validateTips {
+    background-color: #FFFFFF;
+    border: 1px solid #f00;
+    color: #F00000;
+    margin: 10px auto;
+    padding: 5px;
+    text-align: center;
+    width: 98%;
+    display: none;
+    line-height: 20px;
+}
+.info_tips {
+    text-align: center;
+    font-size: 14px;
+    color: red;
+    font-weight: bold;
+    line-height: 20px;
+}
+.info_tips span {
+    color: #000;
+    font-size: 12px;
+}
+/*审核弹框样式**/
+
+.bill-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.bill-head-title {
+    font-weight: bold;
+    text-align: center;
+    background: none repeat scroll 0 0 #DBEFFE;
+    border: 1px solid #E9E9E9;
+    margin: 5px 0px;
+}
+.bill-title {
+    width: 105px;
+    text-align: right;
+    font-weight: bold;
+}
+.bill-table td {
+    height: 26px;
+    border: 1px solid #E9E9E9;
+    padding: 6px 10px;
+    line-height: 16px;
+}
+.bill-right {
+    text-align: left;
+    min-width: 90px;
+}
+.bill {
+    width: 99.8% border: 1px solid #CCCCCC;
+    background-color: #F7F7F7;
+    padding: 5px 5px 20px 5px;
+}
+.bill-head {
+    width: 100%;
+    float: left;
+    height: 30px;
+    background-color: #B4DBED;
+}
+.bill-head-tip {
+    float: left;
+    text-align: left;
+    text-indent: 10px;
+    height: 30px;
+    line-height: 30px;
+    font-weight: bold;
+}
+.bill-item {
+    width: 100%;
+    margin-top: 20px;
+    clear: both;
+}
+.bill-item-left {
+    float: left;
+    text-align: right;
+    line-height: 35px;
+    font-weight: bold;
+    word-wrap: break-word;
+    overflow: hidden;
+}
+.bill-item-right {
+    float: left;
+    text-align: left;
+    text-indent: 5px;
+    position: relative;
+}
+.bill-item-right input.text {
+    width: 70%;
+    padding: 0.3em;
+    margin-top: 5px;
+}
+.bill-item-right textarea {
+    width: 80%;
+    padding: 0.3em;
+}
+.ui-timepicker-wrapper {
+    overflow-y: auto;
+    height: 150px;
+    width: 6.5em;
+    background: #fff;
+    border: 1px solid #ddd;
+    -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    outline: none;
+    z-index: 10001;
+    margin: 0;
+}
+.ui-timepicker-wrapper.ui-timepicker-with-duration {
+    width: 13em;
+}
+.ui-timepicker-wrapper.ui-timepicker-with-duration.ui-timepicker-step-30,
+.ui-timepicker-wrapper.ui-timepicker-with-duration.ui-timepicker-step-60 {
+    width: 11em;
+}
+.ui-timepicker-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.ui-timepicker-duration {
+    margin-left: 5px;
+    color: #888;
+}
+.ui-timepicker-list:hover .ui-timepicker-duration {
+    color: #888;
+}
+.ui-timepicker-list li {
+    padding: 3px 0 3px 5px;
+    cursor: pointer;
+    white-space: nowrap;
+    color: #000;
+    list-style: none;
+    margin: 0;
+}
+.ui-timepicker-list:hover .ui-timepicker-selected {
+    background: #fff;
+    color: #000;
+}
+li.ui-timepicker-selected,
+.ui-timepicker-list li:hover,
+.ui-timepicker-list .ui-timepicker-selected:hover {
+    background: #1980EC;
+    color: #fff;
+}
+li.ui-timepicker-selected .ui-timepicker-duration,
+.ui-timepicker-list li:hover .ui-timepicker-duration {
+    color: #ccc;
+}
+.ui-timepicker-list li.ui-timepicker-disabled,
+.ui-timepicker-list li.ui-timepicker-disabled:hover,
+.ui-timepicker-list li.ui-timepicker-selected.ui-timepicker-disabled {
+    color: #888;
+    cursor: default;
+}
+.ui-timepicker-list li.ui-timepicker-disabled:hover,
+.ui-timepicker-list li.ui-timepicker-selected.ui-timepicker-disabled {
+    background: #f2f2f2;
+}
+.dataTab input[type="text"] {
+    width: 90px;
+}

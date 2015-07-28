@@ -1,0 +1,134 @@
+<include file="Public:header" />
+<div id="content" class="center-1000">
+  <div id="order_wrap">
+    <include file="User:userNav" />
+    <div class="right item_list">
+      <div class="header">
+          <div> <span><if condition="$s_des">{$s_des}<else />支付状态</if></span> <i></i>
+          <ul>
+            <if condition="$s_des">
+            <li onclick="location.href='/Order/index/p/{$Think.get.p}.html';return false;">不限</li>
+            </if>
+            <foreach name="t" item="v" key="k">
+            <if condition="$Think.get.ps neq $k">
+            <li onclick="location.href='/Order/index/p/{$Think.get.p}/ps/{$k}.html';return false;">{$v}</li>
+            </if>
+            </foreach>
+          </ul>
+        </div>
+        <div style="display:none;"> <span>最近一月</span> <i></i>
+          <ul>
+            <li>最近一月</li>
+            <li>最近一月</li>
+            <li>最近一月</li>
+            <li>最近一月</li>
+            <li>最近一月</li>
+          </ul>
+        </div>
+      </div>
+      <div class="item">
+        <div class="order-info ag-center cl-ccc item-div">订单信息</div>
+        <div class="site-num ag-center cl-ccc item-div">场次数</div>
+        <div class="price-total ag-center cl-ccc item-div">总价</div>
+        <div class="order-status ag-center cl-ccc item-div">订单状态</div>
+        <div class="operation ag-center cl-ccc item-div">操作</div>
+        <div class="clr"></div>
+      </div>
+      <foreach name='d' item='v'>
+      <div class="order-no cl-ccc"> 订单编号: {$v.o} </div>
+      <div class="item">
+          <div class="order-info item-div"> <a href="{:U('site/index',array('gid'=>$v['gid'], 'pid'=>$v['pid']))}" target="_blank" class="left"> <img src="/uploads/gym/{$v.gym_info.icon}" width="147" height="98" /> </a>
+          <div class="order-info-wrap">
+              <div>{$v.gym_info.name}-{$v.pro_info.name}</div>
+              <a href="{:U('site/index',array('gid'=>$v['gid'], 'pid'=>$v['pid']))}" target="_blank" class="cl-blue lh-25">场馆信息</a> </div>
+          <div class="clr"></div>
+        </div>
+        <div class="site-num ag-center item-div"> {$v.order_item_num} </div>
+        <div class="price-total ag-center item-div">
+            <div class="list-total"> ¥{$v.m} </div>
+          <span class="lh-25 cl-blue click-details" onclick="return false;" href="###"> 订单详情
+          <div class="order-details order-hide">
+            <div class="order_header">订单详情</div>
+            <foreach name="v['order_item_info']" item='v2'>
+            <span class="changci">{$v2.bt}-{$v2.et} {$v2.sn} {$v2.p}元 <if condition="$v2['o'] gt 1">* {$v2.o}</if></span>
+            </foreach>
+            <div class="clr"></div>
+            <div class="right order-total"> <span class="cl-ccc">总价：</span></div>
+            <div class="clr"></div>
+          </div>
+          </span> </div>
+          <div class="order-status ag-center item-div"> {$v.s_d} 
+          <if condition="$v['can_pay']">
+          <div class="lh-25"> <a class="cl-blue" target="_blank" href="###">去支付</a> </div>
+          </if>
+        </div>
+        <div class="operation ag-center item-div"> <span class="show-pwd cl-blue" onclick="return false;" target="_blank" href="###"> 查看密码
+          <div class="lh-25 order-pwd order-hide">
+            <div class="order_header">查看密码</div>
+            <foreach name="v['order_item_info']" item='v2'>
+            <span class="changci"><span class="cl-org"> {$v2.pn} </span> {$v2.bt}-{$v2.et} {$v2.sn} [{$v2.ps}]</span>
+            </foreach>
+            <div class="clr"></div>
+          </div>
+          </span>
+          <div class="lh-25"> <if condition="$v['is_fav']">已收藏<else /><span class="fav-button-wrap" style="position:relative;z-index:3;"><span class="cl-blue fav-button" data-pid="{$v.pid}" data-gid="{$v.gid}">收藏</span>
+    <div class="favorite-dialog__container">
+        <i class="close favorite-dialog__close"></i>
+        <div class="favorite-dialog__header"><i class="favorite-dialog__success"></i><span class="favorite-dialog__title">收藏成功！</span>
+        </div>
+        <a class="favorite-dialog__content cl-blue" href="/Fav" target="_blank">去我的收藏看看»</a>
+    </div>
+            </span></if></div>
+        </div>
+        <div class="clr"></div>
+      </div>
+      </foreach>
+      <div id="pagenation">
+        <div>
+              {$pageLink}
+        </div>
+      </div>
+    </div>
+    <div class="clr"></div>
+  </div>
+</div>
+<include file="Public:footer" /> 
+<script src="/Common/js/jquery.raty.js"></script> 
+<script type="text/javascript">
+$(function() {
+    $('.star_rate').raty({
+        starHalf: '/Home/img/star-half.png', // The name of the half star image.
+        starOff: '/Home/img/star-off.png', // Name of the star image off.
+        starOn: '/Home/img/star-on.png'
+    });
+
+    $('.cl-blue').click(function() {
+        $('body#order .item_list .comment').not($(this).next().next()).hide();
+        var e = $(this).next().next();
+        if (e.hasClass('comment')) e.toggle();
+    });
+
+    $('.fav-button-wrap').delegate('.favorite-dialog__close', 'click', function(){
+        $(this).parent().remove();
+        return false;
+    }).find('.fav-button').click(function(){
+        var postData = {
+            pid:$(this).attr('data-pid'),
+            gid:$(this).attr('data-gid'),
+        }
+        var _this = this;
+        FR.loadData('/Fav/add', postData, function(){
+            $(_this).removeClass('fav-button').html('已收藏').removeClass('cl-blue');
+            var container = $(_this).next();
+
+            container.show();
+
+            setTimeout(function(e){
+                e.hide(200).remove();
+            }, 2500, container);
+        });
+        return false;
+    })
+});
+</script>
+</html>

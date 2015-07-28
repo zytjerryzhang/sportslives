@@ -1,0 +1,95 @@
+<div class="tool_date cf">
+	<div class="title cf">
+		<div class="more form" id="ver_keys">			
+			<form id="lcsubmit" battr=1  burl='Attr/AttrList' page="Attr/attrList" class="fl">
+				<input type="text" name="keywords" placeholder="模糊查找 - 属性名称"/>
+				<input type="submit"  class="btn" value="搜索">
+			</form>
+			<label>
+				<input type="button" value="新增" title="新增属性" width="550" height="350" saveUrl="Attr/addAttr" infoUrl="Attr/editAttr" class="btn editTrPop">
+			</label>
+		</div>
+	</div>
+</div>
+<!-- -->
+<div id="table_column" class="column cf datashow">
+	<div id="dataTable" class="dataTable">
+		<table  width="80%" cellpadding="5" cellspacing="3" class="contab">
+			<thead>
+				<tr>
+                    <th width="1%">
+                        <input type="checkbox" class="check" isc=2 ></th>
+					<th>属性ID</th>
+					<th>属性名称</th>
+					<th>属性值</th>
+					<th>类型</th>
+					<th>公共属性</th>
+					<th>搜索条件</th>
+					<th>属性状态</th>
+					<th>操作</th>
+				</tr>
+			</thead>		
+		    <tbody class="dataTab">
+					{foreach from=$aData key=key item=val}
+					<tr {if $key%2 != 0} class="divGray" {/if}>
+						<td align="center">
+							<input disabled="disabled" type="hidden" name="id" value={$val.id} ><!-- 有删除功能的主键放在首个td下 -->
+							<input type="checkbox" name='ids[]' value="{$val.id}">
+						</td>
+                        <td align="center">{$val.id}</td>
+						<td align="center">
+							<input disabled="disabled" type="text" name="name" value="{$val.name}" style="width:50px;"/>
+						</td>
+						<td align="center">
+							<input disabled="disabled" type="text" name="value" value="{$val.value}" onblur="this.value=this.value.replace(/，/g,',');" style="width:50px;"/>
+						</td>
+						<td align="center">
+							<select name="type" disabled="disabled">
+								<option {if $val.type == 0}selected="selected"{/if} value=0 >文本框</option>
+								<option {if $val.type == 1}selected="selected"{/if} value=1 >多选项</option>															
+								<option {if $val.type == 2}selected="selected"{/if} value=2 >单选项</option>															
+							</select>
+						</td>
+						<td align="center">
+							<select name="is_common" disabled="disabled">
+								<option {if $val.is_common == 1}selected="selected"{/if} value=1 >是</option>
+								<option {if $val.is_common == 0}selected="selected"{/if} value=0 >否</option>															
+							</select>
+						</td>
+						<td align="center">
+							<select name="is_search" disabled="disabled">
+								<option {if $val.is_search == 1}selected="selected"{/if} value=1 >是</option>
+								<option {if $val.is_search == 0}selected="selected"{/if} value=0 >否</option>															
+							</select>
+						</td>
+						<td align="center">
+							<select name="status" disabled="disabled">
+								<option {if $val.status == 1}selected="selected"{/if} value=1 >启用</option>
+								<option {if $val.status == 0}selected="selected"{/if} value=0 >禁用</option>															
+							</select>
+						</td>
+						<td align="center">
+                            <a class="editTr" title="编辑属性" width="550" height="250" saveUrl="Attr/addAttr" infoUrl="Attr/editAttr/id/{$val.id}" isedit="0">编辑</a>
+						</td>
+					</tr>
+				{/foreach}
+				<tr>
+					<td colspan="12" style="height:28px;">
+	        			&nbsp;&nbsp;
+	        			<span>
+	        				<a class="bantcheditTr" isedit="1">批量编辑</a>
+	        			</span>
+	        			&nbsp;&nbsp;
+						<span>
+							<a href="javascript:void(0);" burl="Attr/update" class="saveInfo">保存</a>
+						</span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="page">{$pagelink}</div>	
+</div>	
+<!-- end -->
+<div id="editFormDialog" style="display: none;" >
+</div>

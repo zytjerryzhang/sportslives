@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>运动汇控制系统登陆</title>
+<link type="text/css" rel="stylesheet" href="/Admin/css/login.css" />
+</head>
+<body>
+<div class="main">
+	<div class="header hide"> 运动汇控制系统Beta 1.0 </div>
+	<div class="content">
+		<div class="title hide">系统登录</div>
+		<form name="userLoginForm" id="userLoginForm" method="post">
+			<fieldset>
+				<div class="input">
+					<input type="hidden" name="refurl" id="refurl" value="{$refurl}" />
+					<input class="input_all name" id="username" name="username" placeholder="用户名" type="text" onFocus="this.className='input_all name_now';" onBlur="this.className='input_all name'" />
+				</div>
+				<div class="input">
+					<input class="input_all password" id="passwd" name="passwd" placeholder="密码" type="password" onFocus="this.className='input_all password_now';" onBlur="this.className='input_all password'" />
+				</div>
+				<div class="input">
+					<div class="formError" id="checklogin" style="display:none"></div>
+				</div>	
+				<div class="enter">
+					<span class="button button-pill button-flat-primary" onclick="userLogin()">登&nbsp;&nbsp;录</span>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+</div>
+<script type="text/javascript" src="/Common/js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="/Admin/js/Login/login.js"></script>
+</body>
+</html>

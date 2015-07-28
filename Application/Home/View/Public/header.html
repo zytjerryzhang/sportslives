@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head lang="ch">
+    <meta charset="UTF-8">
+    <title>{$_title_|default="运动汇"}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <link href="/Home/css/style.css" rel="stylesheet">
+</head>
+
+<body id="{$__BODY_ID__}">
+    <div id="top" class="center-1000">
+        <div class="center-1000">
+            <div class="left">
+                <ul>
+                    <li id="top-app" class="left"> <a href="###">手机应用</a> </li>
+                    <li class="left"> <span class="spe">|</span> </li>
+                    <li id="top-wx" class="left"> <a href="###">微信</a> </li>
+                    <li class="left"><span class="spe">|</span> </li>
+                    <li id="top-wb" class="left"> <a href="###">微博</a> </li>
+                </ul>
+            </div>
+            <div class="right">
+                <ul>
+                    <if condition="UID gt 0">
+                    	<li class="left"> <a href="{:U('login/logout','','html')}">退出</a> </li>
+                    	<li class="left"> <span class="spe">|</span> </li>
+                    	<li class="left light"> <a href="{:U('user/index','','html')}">{$__USER__[username]}</a>，欢迎来到运动汇</li>
+                   		<li class="left"> <span class="spe">|</span> </li>
+                    <else  />
+                        <li class="left light"> <a href="{:U('reg/reg','','html')}">注册</a> </li>
+                    	<li class="left"> <span class="spe">|</span> </li>
+                   		<li class="left"> <a href="{:U('login/login','','html')}">登录</a> </li>
+                    	<li class="left"> <span class="spe">|</span> </li>
+                    </if>
+                    <li class="left"> <a href="{:U('user/myfav','','html')}">我的收藏</a> </li>
+                    <li class="left"> <span class="spe">|</span> </li>
+                    <li class="left"> <a href="###">帮助中心</a> </li>
+                </ul>
+            </div>
+            <div class="clr"></div>
+        </div>
+    </div>
+    <div id="logo" class="center-1000">
+        <div id="logo_img" class="left">
+            <div class="left"><a href="/"><img src="/Home/img/logo.png" class="left" width="137" height="57" /></a>
+            </div>
+            <div class="left" id="logo-city">
+                <div id="cur-city">
+                    <span>{$__CITY__['city_name']}</span>
+                    <i id="city-dropdown"></i>
+                    <div id="city-list">
+                        <div class="city-row">
+	                        <span class="city-letter">A-D</span>
+							<foreach name="__HEADER_CITY__" item="vo">
+                            	<between name="vo.py" value="A,D">
+                            		<a href="{:U('',array('cityId'=>$__CITY__['id'],'proid'=>$__PRO__['id'],'keywords'=>$__KEYS_),'html')}" class="city">{$vo.city_name}</a>
+                            	</between>
+							</foreach>
+                        </div>
+                        <div class="city-row">
+	                        <span class="city-letter">D-Z</span>
+							<foreach name="__HEADER_CITY__" item="vo">
+                            	<between name="vo.py" value="D,Z">
+                            		<a href="{:U('',array('cityId'=>$__CITY__['id'],'proid'=>$__PRO__['id'],'keywords'=>$__KEYS_),'html')}" class="city">{$vo.city_name}</a>
+                            	</between>
+							</foreach>
+                        </div>
+                       </div>
+                </div>
+            </div>
+            <div class="clr"></div>
+        </div>
+        <div id="logo_search" class="left">
+        	<form action="{:U('',array('cityId'=>$__CITY__['id'],'proid'=>$__PRO__['id'],'keywords'=>$__KEYS__),'html')}" method="get" name="seach" id="searchForm">
+            	<input class="left" type="text" name="keywords" value="{$__KEYS__}" placeholder="请输入场馆名称或地址" />
+            	<span class="left bg-org" id="sbtn">搜 索</span>
+            </form>	
+        </div>
+        <div id="logo_contactus" class="left">
+            <div>400-888-888-8</div>
+        </div>
+        <div class="clr"></div>
+    </div>
+    <div id="menu">
+        <div class="bg-blue"></div>
+        <div class="center-1000">
+            <ul>
+                <li class="left" id="cur-project">
+                    <span class="bg-org">
+                    <foreach name="__PROLIST__" item="vo">
+          				<eq name="vo.id" value="$CPROID">{$vo.name}</eq>
+          			</foreach>
+          <div>
+          	 <foreach name="__PROLIST__" item="vo">
+          	 	<neq name="vo.id" value="$CPROID">
+	         		<a id="{$vo.tag_name}" class="item ym" href="{:U('index/index/',array('cityId'=>$__CITY__['id'],'proid'=>$vo['id']),'html')}">{$vo.name}</a>
+            		<span class="spe"></span>
+            	</neq>
+        	 </foreach>
+            <!--<a id="ym" class="item ym" href="##">羽毛球</a>
+            <span class="spe"></span>
+            <a id="wq" class="item ym" href="##">网球</a>
+            <span class="spe"></span>
+            <a id="yy" class="item ym" href="##">游泳</a>
+            <span class="spe"></span>
+            <a id="nq" class="item ym" href="##">篮球</a>
+            <span class="spe"></span>
+            <a id="pp" class="item ym" href="##">乒乓球</a>-->
+        </div>
+        </span>
+        </li>
+         <foreach name="__HEADER_MENU__" item="vo">
+         	<li class="left menu">
+         		<a href="{:U($vo[url])}" target="{$vo.target}">
+         			<if condition="$vo.id eq 2"><span>{$vo.name}</span>
+         			<else />
+         			{$vo.name}
+         			</if>
+         		</a>
+         	</li>
+        </foreach>
+        </ul>
+    </div>
+    </div>

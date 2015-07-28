@@ -1,0 +1,70 @@
+<div class="toolbar cf">
+	<div class="tool_date cf">
+		<div class="title cf">
+			<div class="more form" id="ver_keys">			
+				<form id="lcsubmit" battr=1  burl='Sms/smsList' page="Sms/smsList" class="fl">
+					<label>手机号:&nbsp;&nbsp;</label>
+					<input type="text" name="mobile"/>
+					<label>发送类型:&nbsp;&nbsp;</label>
+					<select name="select">
+						<option value="">请选择</option>
+						{foreach from=$sms_type key=key item=val}
+							<option value="{$key}">{$val}</option>
+						{/foreach}
+					</select>
+					<label>时间:&nbsp;&nbsp;</label><input type="text" name="btime" onclick="WdatePicker()" /> - <input type="text" name="etime" onclick="WdatePicker()" />
+					<input type="submit"  class="btn" value="搜索">
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- -->
+<div id="table_column" class="column cf datashow">
+	<div id="dataTable" class="dataTable">
+		<table  width="80%" cellpadding="5" cellspacing="3" class="contab">
+			<thead>
+				<tr>
+					<th><input type="checkbox" class="check" isc=2 ></th>
+					<th>编号</th>
+					<th>手机号</th>
+					<th>发送类型</th>
+					<th>发送时间</th>	
+					<th>验证码</th>
+					<th>内容</th>
+				</tr>
+			</thead>		
+			<tbody class="dataTab">
+				{foreach from=$aData key=key item=val}
+					<tr {if $key%2 != 0} class="divGray" {/if}>
+						<td style="height:27px;"><input type="checkbox" name='ids[]' value="{$val.id}"></td>
+						<td>{$val.id}</td>
+						<td>{$val.mobile}</td>
+						<td>
+							{foreach from=$sms_type key=key item=val}
+								{if $val.type==$key}{$val}{/if}
+							{/foreach}
+						</td>
+						<td>{$val.create_time|dateformat} </td>
+						<td>{$val.verify_code}</td>
+						<td>{$val.content}</td>
+					</tr>
+				{/foreach}
+				<tr>
+					<td colspan="7" style="height:28px;">
+	        			<span>
+	        				<a class="check" isc=1>全选</a> / 
+	        				<a class="check" isc=0>全不选</a>
+	        			</span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="page">{$pagelink}</div>
+</div>
+<!-- end -->
+{literal}
+<script type="text/javascript">  
+</script>
+{/literal}

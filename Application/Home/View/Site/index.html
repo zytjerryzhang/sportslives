@@ -1,0 +1,200 @@
+<include file="Public:header" />
+<div id="order-follow" class="center-1000">
+    <div id="follow_desc"> <span>选择场馆<i></i></span> <span class="cur">选择场次<i></i></span> <span>确认支付<i></i></span> <span>预定成功<i></i></span> </div>
+    <div id="follow_bar"> </div>
+    <div id="follow_cur" class="step2"></div>
+</div>
+<div id="content" class="center-1000">
+    <div id="gym-info">
+        <div class="left" id="gym-img-wrap">
+            <div id="cycle-slideshow">
+                <img src="/uploads/gym/{$gym.icon}" />
+                <foreach name="sImg" item="v">
+                    <img src="/uploads/gym/{$v.name}" />
+                </foreach>
+            </div>
+            <div id="nav"></div>
+        </div>
+        <div class="left" id="gym-info-wrap">
+            <div class="name"> <span>{$gym.name}-{$proName}</span> </div>
+            <div class="addr">{$gym.addr}</div>
+            <if condition="$gym.tele AND $gym.phone">
+                <div class="tele">
+                    <if condition="$gym.tele">
+                        电话: {$gym.tele}&nbsp;&nbsp;&nbsp;
+                    </if>
+                    <if condition="$gym.phone">
+                        移动电话: 13712345678
+                    </if>
+                </div>
+            </if>
+            <div class="other">
+                <div class="data"> <span class="star_bg star{$gymPro.mark} span"></span><span class="i">{$gymPro.common_number}人评价</span> <span class="fav_bg span"></span><span class="i">{$gymPro.fav}人<if condition="$is_fav">收藏<else /><span class="fav-button-wrap" style="position:relative;z-index:3;"><span class="cl-blue fav-button" data-pid="{$Think.get.pid}" data-gid="{$Think.get.gid}">收藏</span>
+                    <div class="favorite-dialog__container">
+                        <i class="close favorite-dialog__close"></i>
+                        <div class="favorite-dialog__header"><i class="favorite-dialog__success"></i><span class="favorite-dialog__title">收藏成功！</span>
+                        </div>
+                        <a class="favorite-dialog__content cl-blue" href="/Fav" target="_blank">去我的收藏看看»</a>
+                    </div>
+                    </span>
+                    </if>
+                    </span> <span class="sale_bg span"></span><span class="i">已售<font class="cl-org">{$gymPro.sale}</font></span> </div>
+                <volist name="attr" id="v">
+                    <div class="attr"> {$v.name} :
+                        <if condition="$v.type eq 0">
+                            {$v.gpv}
+                            <else />
+                            <volist name="v['val']" id="v2">
+                                <span <php>if (in_array($v2, $v['gpv'])) echo 'class="has"';</php>><i></i>{$v2}</span>
+                            </volist>
+                        </if>
+                    </div>
+                </volist>
+            </div>
+        </div>
+        <div class="clr"></div>
+    </div>
+    <div id="site-week">
+        <foreach name="date" item="v"><a href="###" week="{$v.w}" date="{$v.d}">{$v.d} 星期{$v.w}</a>
+        </foreach>
+    </div>
+    <div id="site-info-wrap">
+    </div>
+    <div id="site-info-res">
+        <div class="item-common">{$gym.name}-{$proName} &nbsp; <span id="order_time" class="cl-org">场地日期：2014-12-25（星期三）</span> </div>
+        <div class="total">
+            <span class="total-price cl-org" p="0">合计 210元</span>
+            <span id="submit-order" class="once-again bg-org">提交订单</span>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<include file="Public:footer" />
+<link rel="stylesheet" type="text/css" href="/Home/css/tooltipster.css" />
+<script src="/Common/js/jquery.cycle2.min.js"></script>
+<script src="/Common/js/jquery.tooltipster.js"></script>
+<script type="text/javascript">
+    $('#site-info-wrap').delegate('.allow-sale', 'click', function() {
+        var size = $('.selected').size();
+        if (size > 3) return false;
+        $(this).removeClass('allow-sale').addClass('selected');
+        var i = $(this).attr('i');
+        var n = $(this).attr('n');
+        var b = $(this).attr('b');
+        var e = $(this).attr('e');
+        var p = $(this).attr('p');
+        if (size > 3) return false;
+        var s = '<div class="site-item" id="o-' + i + '">' + '<span>' + n + '</span>' + '<span>' + b + '-' + e + '</span>' + '<span style="text-align:center;">' + p + '元</span></div>';
+        $('#site-info-res .total').before(s);
+        p = parseFloat($('.total-price').attr('p')) + parseFloat(p);
+        $('.total-price').html('合计 ' + p).attr('p', p);
+        $('#site-info-res').show();
+    }).delegate('.selected', 'click', function() {
+        $(this).removeClass('selected').addClass('allow-sale');
+
+        var i = $(this).attr('i');
+        var id = 'o-' + i;
+        $('#' + id).remove();
+
+        var p = $(this).attr('p');
+        p = parseFloat($('.total-price').attr('p')) - parseFloat(p);
+        $('.total-price').html('合计 ' + p).attr('p', p);
+
+        var size = $('.selected').size();
+        if (size == 0) $('#site-info-res').hide();
+        return false;
+    })
+    $(function() {
+        $('#cycle-slideshow').cycle({
+            fx: 'fade',
+            speed: 'slow',
+            timeout: 3000,
+            pager: '#nav'
+        });
+        $('#site-week a').click(function() {
+            if ($(this).hasClass('cur')) return false;
+            var data = {
+                date: $(this).attr('date')
+            };
+            var _this = this;
+            FR.loadData('/Site/siteInfo', data, function(data) {
+                $('#site-info-wrap').html(data);
+                $('.table-chang div.saled').tooltipster({
+                    theme: 'tooltipster-sa'
+                });
+                $('.table-chang div.selected,.table-chang div.allow-sale').tooltipster({
+                    theme: 'tooltipster-se'
+                });
+                $('#site-week a.cur').removeClass('cur');
+                var s = '场地日期：' + $(_this).attr('date') + '（星期' + $(_this).attr('week') + '）';
+                $('#order_time').html(s);
+                $(_this).addClass('cur');
+                $('.site-item').remove();
+                $('.total-price').attr('p', 0);
+                $('#site-info-res').hide();
+            }, {
+                dataType: 'html'
+            });
+            return false;
+        });
+        $('#site-week a:first').click();
+        $('#submit-order').click(function() {
+            var size = $('.selected').size();
+            if (size < 1) return false;
+
+            var price = 0.0;
+            var site = {};
+            $('.selected').each(function() {
+                var i = $(this).attr('i');
+                var p = parseFloat($(this).attr('p'));
+                price += p;
+                if (typeof site['o' + i] == 'undefined') {
+                    site['o' + i] = {};
+                    site['o' + i].id = i;
+                    site['o' + i].order_number = 0;
+                }
+                site['o' + i].order_number++;
+            })
+
+            var data = 'p=' + price;
+            for (var v in site) {
+                data += '&i[' + site[v].id + ']=' + site[v].id;
+                data += '&n[' + site[v].id + ']=' + site[v].order_number;
+            }
+            FR.loadData('/Site/submitOrder', data, function(data) {
+                if (data != '0' && parseInt(data) == data) {
+                    $('.selected').removeClass('selected').addClass('saled');
+                    location.href = '/Pay/index/oid/' + data;
+                }
+            }, {
+                dataType: 'html'
+            });
+        });
+
+        $('.fav-button-wrap').delegate('.favorite-dialog__close', 'click', function(){
+            $(this).parent().remove();
+            return false;
+        }).find('.fav-button').click(function(){
+            var postData = {
+                pid:$(this).attr('data-pid'),
+                gid:$(this).attr('data-gid'),
+            }
+            var _this = this;
+            FR.loadData('/Fav/add', postData, function(){
+                var container = $(_this).next();
+                $(_this).parent().before('收藏');
+                $(_this).remove();
+
+                container.show();
+
+                setTimeout(function(e){
+                    e.hide(200).remove();
+                }, 2500, container);
+            });
+            return false;
+        })
+    });
+</script>
+
+</html>

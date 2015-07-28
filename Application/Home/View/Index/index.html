@@ -1,0 +1,184 @@
+<include file="Public:header"/>
+<!--begin body-->
+    <div id="banner" class="center-1000">
+        <div id="cycle-slideshow">
+            <img lurl="http://www.baidu.com/" onclick="location.href=$(this).attr('lurl')" src="/Home/img/tmp/1.jpg">
+            <img lurl="http://www.baidu.com/" onclick="location.href=$(this).attr('lurl')" src="/Home/img/tmp/2.jpg">
+            <img lurl="http://www.baidu.com/" onclick="location.href=$(this).attr('lurl')" src="/Home/img/tmp/3.jpg">
+            <img lurl="http://www.baidu.com/" onclick="location.href=$(this).attr('lurl')" src="/Home/img/tmp/4.jpg">
+        </div>
+        <div id="nav"></div>
+    </div>
+    <div id="content" class="center-1000">
+        <div id="content-left" class="left w-750">
+            <div id="search_condition">
+                <dl class="selitem area">
+                    <dt>区域:</dt>
+                    <dd> 
+                    	<if condition="$param.area_id eq ''">
+                    		<span>不限</span>
+                    	<else/>
+                    		<a href="{:U('index/index/',array('subway_id'=>$param['subway_id'],'area_id'=>'','cityId'=>$__CITY__['id'],'proid'=>$__PRO__['id'],'keywords'=>$__KEYS__),'html')}">不限</a>	
+                    	</if> 
+                    	<foreach name="__CITY__AREA__" item="vo">
+                    		<eq name="param.area_id" value="$vo.id"><span>{$vo.name}</span></eq>
+                    		<neq name="param.area_id" value="$vo.id">
+                    			<a href="{:U('index/index/',array('subway_id'=>$param['subway_id'],'area_id'=>$vo['id'],'cityId'=>$__CITY__['id'],'proid'=>$__PRO__['id'],'keywords'=>$__KEYS__),'html')}">{$vo.name}</a>
+                    		</neq> 
+				        </foreach>
+                    </dd>
+                    <div class="clr"></div>
+                </dl>
+                <div class="dashed"></div>
+                <dl class="selitem subway">
+                	<dt>地铁线:</dt>
+                	<dd> 
+                		<if condition="$param.subway_id eq ''">
+                    		<span>不限</span> 
+                    	<else/>
+                    		<a href="{:U('index/index/',array('subway_id'=>'','area_id'=>$param['area_id'],'cityId'=>$__CITY__['id'],'proid'=>$__PRO__['id'],'keywords'=>$__KEYS__),'html')}">不限</a>
+                    	</if>
+                    	<foreach name="__CITY__SUBWAY__" item="vo">
+                    		<eq name="param.subway_id" value="$vo.id"><span>{$vo.name}</span></eq>
+                    		<neq name="param.subway_id" value="$vo.id">
+				         		<a href="{:U('index/index/',array('subway_id'=>$vo['id'],'area_id'=>$param['area_id'],'cityId'=>$__CITY__['id'],'proid'=>$__PRO__['id'],'keywords'=>$__KEYS__),'html')}">{$vo.name}</a>
+				         	</neq>	
+				        </foreach>
+                    </dd>
+                    <div class="clr"></div>
+                </dl>
+                <div class="clr"></div>
+            </div>
+            <div id="search-order"> <a class="left w-83" href="###">默认排序</a> <a class="left" href="###">销量<i class="down filter_bg"></i></a> <a class="left" href="###">好评<i class="up filter_bg"></i></a> <a class="left" href="###">价格<i class="up filter_bg"></i></a> <span class="left w-94 cur" href="###">价格区间<i class="range"></i></span> <span class="left w-94" href="###">可用时段<i class="range"></i></span>
+                <div class="left  w-256"> <a class="checkbox checked filter_bg" href="###">免预约</a> <a class="checkbox filter_bg" href="###">免预约</a> <a class="checkbox checked filter_bg" href="###">免预约</a> </div>
+                <div class="clr"></div>
+            </div>
+            <div id="item_list">
+            	<foreach name="gym_list" item="vo">
+	                <div class="item">
+	                    <div class="left item-left">
+	                        <a href="{:U('site/index/',array('gid'=>$vo['gym_id'],'pid'=>$vo['pro_id']),'html')}"> <img src="/uploads/gym/{$vo.icon}" width="240" height="160" /> </a>
+	                    </div>
+	                    <div class="left item-right">
+	                        <div class="add_pri">
+	                            <div class="left">
+	                                <div class="name"> <a href="{:U('site/index/',array('gid'=>$vo['gym_id'],'pid'=>$vo['pro_id']),'html')}">{$vo.name}-{$__PRO__.name}</a> </div>
+	                                <div class="addr">{$vo.addr}</div>
+	                            </div>
+	                            <div class="right">
+	                                <div class="price"><small>¥ </small>{$vo['c_price']/100}元</div>
+	                                <div class="old-price">¥ {$vo['price']/100}元</div>
+	                            </div>
+	                            <div class="clr"></div>
+	                        </div>
+	                        <div class="data_order">
+	                            <div class="left">
+	                                <div class="data"> 
+		                                <span class="star_bg star{$vo['mark']|default=25} span"></span>
+		                                <span class="i">{$vo.common_number}人评价</span> 
+		                                <span class="fav_bg span"></span>
+		                                <span class="i">{$vo.fav}人收藏</span> 
+		                                <span class="sale_bg span">
+		                                </span><span class="i">已售
+		                                <font class="cl-org">{$vo.sale}</font></span> 
+	                                </div>
+	                            </div>
+	                            <div class="right bg-org"><a href="{:U('site/index/',array('gid'=>$vo['gym_id'],'pid'=>$vo['pro_id']),'html')}">预 订</a>
+	                            </div>
+	                            <div class="clr"></div>
+	                        </div>
+	                    </div>
+	                    <div class="clr"></div>
+	                </div>
+                </foreach>
+            </div>
+            <div id="pagenation">
+                <div>
+                    {$pageLink}
+                </div>
+            </div>
+        </div>
+        <!--div id="content-right" class="right">b </div-->
+        <div id="content-right" class="right w-240">
+            <div id="recommend" class="side-wrap">
+                <div id="rec_head" class="side-head"></div>
+                <div class="right_img"><img src="/Home/img/tmp/b.png" width="220" height="146" />
+                </div>
+                <div id="rec_item_list">
+                	<foreach name="rcmd_list" item="vo">
+	                    <div class="rec_item">
+	                        <a class="left" href="{:U('site/index/',array('gid'=>$vo['gym_id'],'pid'=>$vo['pro_id']),'html')}">
+	                            <img src="/uploads/gym/{$vo.icon}" width="96" height="64" />
+	                        </a>
+	                        <div class="left">
+	                            <a href="{:U('site/index/',array('gid'=>$vo['gym_id'],'pid'=>$vo['pro_id']),'html')}">{$vo.name}-{$__PRO__.name}</a></a>
+	                            <span class="cl-gray">已售</span><span class="cl-org">{$vo.sale}</span>
+	                        </div>
+	                        <div class="clr"></div>
+	                    </div>
+                    </foreach>
+                    <!--<div class="dashed"></div>-->
+                </div>
+            </div>
+            <div id="hot" class="side-wrap">
+                <div id="hot_head" class="side-head"></div>
+                <div class="right_img"><img src="/Home/img/tmp/b.png" width="220" height="146" />
+                </div>
+                <div id="rec_item_list">
+                    <foreach name="hot_list" item="vo">
+	                    <div class="rec_item">
+	                        <a class="left" href="{:U('site/index/',array('gid'=>$vo['gym_id'],'pid'=>$vo['pro_id']),'html')}">
+	                            <img src="/uploads/gym/{$vo.icon}" width="96" height="64" />
+	                        </a>
+	                        <div class="left">
+	                            <a href="{:U('site/index/',array('gid'=>$vo['gym_id'],'pid'=>$vo['pro_id']),'html')}">{$vo.name}-{$__PRO__.name}</a></a>
+	                            <span class="cl-gray">已售</span><span class="cl-org">{$vo.sale}</span>
+	                        </div>
+	                        <div class="clr"></div>
+	                    </div>
+                    </foreach>
+                </div>
+            </div>
+            <div id="recently" class="side-wrap">
+                <div id="recently_head" class="side-head"></div>
+                <div id="rec_item_list">
+                    <div class="rec_item">
+                        <a class="left" href="###">
+                            <img src="/Home/img/tmp/c.png" width="96" height="64" />
+                        </a>
+                        <div class="left">
+                            <a href="###">皇冠体育中心-足球场</a>
+                            <span class="cl-gray">已售</span><span class="cl-org">120</span>
+                        </div>
+                        <div class="clr"></div>
+                    </div>
+                    <div class="dashed"></div>
+                    <div class="rec_item">
+                        <a class="left" href="###">
+                            <img src="/Home/img/tmp/c.png" width="96" height="64" />
+                        </a>
+                        <div class="left">
+                            <a href="###">皇冠体育中心-足球场</a>
+                            <span class="cl-gray">已售</span><span class="cl-org">120</span>
+                        </div>
+                        <div class="clr"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clr"></div>
+    </div>
+<include file="Public:footer"/>
+<script src="/Common/js/jquery.cycle2.min.js"></script>
+<script type="text/javascript">
+    $(function() {
+        $('#cycle-slideshow').cycle({
+            fx: 'fade',
+            speed: 'slow',
+            timeout: 3000,
+            pager: '#nav'
+        });
+    });
+</script>
+
+</html>

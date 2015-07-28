@@ -1,0 +1,97 @@
+<div class="tool_date cf">
+    <div class="title cf">
+		<form id="lcsubmit2">
+            <select name="gym_id" id="gym_id" class="gym_pro">
+                <option value=0>选择场馆</option>
+				{foreach from=$gym key=key item=val}
+                <option {if $val.id == $id}selected{/if} value="{$val.id}">{$val.name}</option>
+                {/foreach}
+            </select>
+            <select name="pro_id" id="pro_id" class="gym_pro">
+                <option value=0>选择项目</option>
+				{foreach from=$pro key=key item=val}
+                <option value="{$val.id}">{$val.name}</option>
+                {/foreach}
+            </select>
+            <span id="gym_pro_wrap" style="display:none;">
+                <input placeholder="开始时间" time type="text" lessThan="#closetime" title="场地开始运营时间" class="tooltip timepicker" id="opentime" name="opentime" value="" style="width:50px;"/>
+                &nbsp;
+                <input placeholder="结束时间" time biggerThan="#opentime" type="text" title="场地结束运营时间" class="tooltip timepicker" id="closetime" name="closetime" value="" style="width:50px;"/>
+                &nbsp;
+                <select id="timeRange" min="0.5" name="timeRange">
+                    <option value="0">每场时间</option>
+                    <option value="0.5">0.5小时</option>
+                    <option value="1">1小时</option>
+                    <option value="1.5">1.5小时</option>
+                    <option value="2">2小时</option>
+                    <option value="2.5">2.5小时</option>
+                    <option value="3">3小时</option>
+                    <option value="3.5">3.5小时</option>
+                    <option value="4">4小时</option>
+                    <option value="4.5">4.5小时</option>
+                    <option value="5">5小时</option>
+                </select>
+                &nbsp;
+                <input placeholder="每场价格" price type="text" name="price" id="price" style="width:50px;"/>
+                &nbsp;
+			    <input type="button" id="create_time_bar" value="生成场次时间价格表" class="btn" />
+                &nbsp;
+			    <input type="button" title="属性管理" width="650" value="属性管理" id='attr_mag' class="btn editTrPop" />
+            </span>
+        </form>
+    </div>
+</div>
+<div id="site_wrap" class="column">
+<form id="price_form">
+    <div class="tab-tit">
+        <ul>
+		    {foreach from=$date key=k item=v}
+            <li class="date_ss {if $k == 0} on {/if} btn" date="{$v.value}">{$v.label}  <span class="week">星期{$v.week}</span></li>
+            {/foreach}
+            <li class="btn date_picker" max-date="{$date[6].value} 00:00:00">
+                <span id="d_p_d"></span> 
+            <input type="hidden" id="max_date"/>
+            +
+            </li>
+        </ul>
+        <div class="clr" />
+    </div>
+    <table cellpadding="5" cellspacing="3" class="contab">
+        <tr class="t_stay">
+            <th width="5%" style="color:gray;" class="price_date">新增</th>
+            <td width="85%" id="bar_wrap">
+                <div class="container2" role="main"></div>
+            </td>
+            <th width="10%"><b>操作</b></th>
+        </tr>
+        <tbody id="price_wrap">
+        </tbody>
+        <tr>
+            <th colspan="3" align="right">
+                <label class="edit_mode_label">
+                    <input type="radio" name="edit_mode" class="edit_mode edit_mode1" value="1" />
+                    仅修改<span class="price_date"></span>
+                </label>
+                &nbsp;
+                <label class="edit_mode_label">
+                    <input type="radio" name="edit_mode" class="edit_mode edit_mode2" checked value="2" />
+                    修改自<span class="price_date"></span>起的每个<span class="price_week"></span>
+                </label>
+                &nbsp;
+                <label class="edit_mode_label">
+                    <input type="radio" name="edit_mode" class="edit_mode edit_mode3" value="3" />
+                    修改自<span class="price_date"></span>起每一天
+                </label>
+			    <input type="button" id="save_site" class="btn" value="保存"/>
+            </th>
+        </tr>
+    </table>
+</form>
+</div>
+<span style="display:none;" id="addSite" callback="window.pageFunc.addSiteCallback" title="新增场地" width="500" saveUrl="Site/addSite" infoUrl="Site/addSite" class="editTrPop">
+<div id="editFormDialog" style="display: none;"></div>
+{literal}
+<link rel="stylesheet" href="/Admin/css/elessar.css" type="text/css" />
+<script type="text/javascript" src="Common/js/elessar.js"></script>
+<script type="text/javascript" src="Admin/js/Site/site.js"></script>
+{/literal}

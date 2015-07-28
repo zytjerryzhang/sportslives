@@ -1,0 +1,177 @@
+<div id="table_column" class="column cf datashow">
+	<input type="hidden" value="{$userInfo.id}" id="uid" />
+	<div id="tabs">	
+		<div id="tabs-head">
+		       <ul>
+		          <li><a href="#tabs_1">基本信息</a></li>
+		          <li><a href="#tabs_2" onclick="myOrder()">订单列表</a></li>
+		          <li><a href="#tabs_3" onclick="myTeam()">球队列表</a></li>
+		          <li><a href="#tabs_4" onclick="mytxlog()">消费记录</a></li>
+		          <li><a href="#tabs_5">银行卡列表</a></li>
+		       </ul>
+		   </div>  
+		   <div id="tabs_1">  
+				<div id="dataTable">
+			         <table class="bill-table">
+						<thead>
+							<tr>
+								<td colspan="6" class="bill-head-title">用户详细信息列表</td>
+							</tr>
+						</thead>
+				    	<tbody>
+				    		<tr>
+				    			<td class="bill-title">用户名</td>
+				    			<td class="bill-right">{$userInfo.username}</td> 
+				    			<td class="bill-title">真实姓名</td>
+				    			<td class="bill-right">{$userInfo.realname}</td> 
+				    			<td class="bill-title">手机号</td>
+				    			<td class="bill-right">{$userInfo.mobile}</td> 	
+				    		</tr>	
+				    		<tr>
+				    			<td class="bill-title">邮箱</td>
+				    			<td class="bill-right">{$userInfo.email}</td> 
+				    			<td class="bill-title">昵称</td>
+				    			<td class="bill-right">{$userInfo.nickname}</td> 
+				    			<td class="bill-title">QQ号</td>
+				    			<td class="bill-right">{$userInfo.qq}</td> 	
+				    		</tr>
+				    		<tr>
+				    			<td class="bill-title">性别</td>
+				    			<td class="bill-right">
+				    				{if $userInfo.sex eq 1}男{elseif $userInfo.sex eq 2}女{else}保密{/if}
+				    			</td> 
+				    			<td class="bill-title">身份证号</td>
+				    			<td class="bill-right">{$userInfo.id_number}</td> 
+				    			<td class="bill-title">生日</td>
+				    			<td class="bill-right">{$userInfo.birthday}</td> 	
+				    		</tr>
+				    		<tr>
+				    			<td class="bill-title">推荐人手机号</td>
+				    			<td class="bill-right">{$userInfo.rcmd_mobile}</td>
+				    			<td class="bill-title">是否以奖励推荐人</td>
+				    			<td class="bill-right">
+				    				{if $userInfo.has_pay_rcmd eq 0}否{else}是{/if}
+				    			</td> 
+				    			<td class="bill-title">是否有效</td>
+				    			<td class="bill-right">
+									{if $userInfo.has_pay_rcmd eq 0}不可用{else}可用{/if}
+				    			</td>
+				    		</tr>	
+				    		<tr>
+				    			<td class="bill-title">创建时间</td>
+				    			<td class="bill-right">{$userInfo.create_time|dateformat}</td> 
+				    			<td class="bill-title">最后登录时间</td>
+				    			<td class="bill-right">{$userInfo.login_time|dateformat}</td>
+				    			<td class="bill-title">登录IP</td>
+				    			<td class="bill-right">{$userInfo.login_ip|无记录}</td>
+				    		</tr>
+						</tbody>
+				    </table>
+				</div>
+		</div>
+		<div id="tabs_2">
+				<table class="bill-table">
+					<thead>
+						<tr>
+							<td colspan="9" class="bill-head-title">订单详细信息列表</td>
+						</tr>
+					</thead>
+					<thead>
+						<tr style="font-weight: bold;text-align: center;background-color:#F7F7F7">
+							<td style="height:28px;"><a href="javascript:;" onclick="listOrderBy(this)" by="desc" col="period" ref="earn">排序</a></td>
+							<td><a href="javascript:;" onclick="listOrderBy(this)" by="desc" col="uid" ref="earn">用户ID</a></td>
+							<td><a href="javascript:;" onclick="listOrderBy(this)" by="desc" col="prin" ref="earn">金额</a></td>
+							<td><a href="javascript:;" onclick="listOrderBy(this)" by="desc" col="interest" ref="earn">项目</a></td>
+							<td><a href="javascript:;" onclick="listOrderBy(this)" by="desc" col="status" ref="earn">使用状态</a></td>
+							<td><a href="javascript:;" onclick="listOrderBy(this)" by="desc" col="plan_time" ref="earn">使用时间</a></td>
+							<td><a href="javascript:;" onclick="listOrderBy(this)" by="desc" col="actual_time" ref="earn">验证码</a></td>
+							<td><a href="javascript:;" onclick="listOrderBy(this)" by="desc" col="create_time" ref="earn">创建时间</a></td>
+						</tr>
+					</thead>
+			    	<tbody id="loadRepayData"></tbody>
+			    </table>
+			   	<div id="earnPagination" class="page" style="margin-top:35px;"></div>
+			</div>
+			<div id="tabs_3">
+				<table class="bill-table">
+					<thead>
+						<tr>
+							<td colspan="6" class="bill-head-title">球队信息详息列表</td>
+						</tr>
+					</thead>
+					<thead>
+						<tr style="font-weight: bold;text-align: center;background-color:#F7F7F7">
+							<td style="height:28px;"><a href="javascript:;" onclick="listOrderBy(this)" by="desc" col="id" ref="inv">队长</a></td>
+							<td><a href="javascript:;" onclick="listOrderBy(this)" by="desc" col="amt" ref="inv">队服</a></td>
+							<td><a href="javascript:;" onclick="listOrderBy(this)" by="desc" col="is_auto_invest" ref="inv">等级</a></td>
+							<td><a href="javascript:;" onclick="listOrderBy(this)" by="desc" col="has_just" ref="inv">提交公正</a></td>
+							<td><a href="javascript:;" onclick="listOrderBy(this)" by="desc" col="status" ref="inv">状态</a></td>
+							<td><a href="javascript:;" onclick="listOrderBy(this)" by="desc" col="create_time" ref="inv">创建时间</a></td>
+						</tr>
+					</thead>
+			    	<tbody id="loadInvestData"></tbody>
+			    </table>
+			    <div id="invPagination" class="page" style="margin-top:35px;"></div>
+			</div>
+			<div id="tabs_4">
+				<table class="bill-table">
+					<thead>
+						<tr>
+							<td colspan="7" class="bill-head-title">消费流水信息列表</td>
+						</tr>
+					</thead>
+					<thead>
+						<tr style="font-weight: bold;text-align: center;background-color:#F7F7F7">
+							<td style="height:28px;"><a href="javascript:;" onclick="listOrderBy(this)" by="desc" col="type" ref="tx">交易类型</a></td>
+							<td><a href="javascript:;" onclick="listOrderBy(this)" by="desc" col="amt" ref="tx">交易金额</a></td>
+							<td>当前余额</td>
+							<td>备注</td>
+							<td><a href="javascript:;" onclick="listOrderBy(this)" by="desc" col="create_time" ref="tx">创建时间</a></td>
+						</tr>
+					</thead>
+			    	<tbody id="loadtxData"></tbody>
+			    </table>
+			    <div id="txPagination" class="page" style="margin-top:35px;"></div>
+			</div>
+			<div id="tabs_5">
+				<table class="bill-table">
+					<thead>
+						<tr>
+							<td colspan="7" class="bill-head-title">绑定的银行卡</td>
+						</tr>
+					</thead>
+					<thead>
+						<tr style="font-weight: bold;text-align: center;background-color:#F7F7F7">
+							<td style="height:28px;">银行卡号</td>
+							<td>银行名称</td>
+							<td>所在省</td>
+							<td>所在市</td>
+							<td>支行名称</td>
+							<td>是否默认</td>
+							<td>创建时间</td>
+						</tr>
+					</thead>
+					{foreach from=$u_bank_list key=key item=val}
+					<tr {if $key%2 != 0} class="divGray" {/if}>
+						<td>{$val.bank_card_number}</td>
+						<td>{$val.bank_name}</td>
+						<td>{$val.bank_prov}</td>
+						<td>{$val.bank_city}</td>
+						<td>{$val.br_bank_name}</td>
+						<td>{if $val.is_default==1}是{else}否{/if}</td>
+						<td>{$val.create_time|dateformat}</td>
+					</tr>
+					{/foreach}
+			    </table>
+			</div>
+	</div>
+</div>		
+{literal}
+<!--<script type="text/javascript" src="/Public/Admin/js/Sluser/user.js"></script>-->
+<script type="text/javascript">
+$(document).ready(function(){
+	//详细页面加载tabs
+	$("#tabs").tabs({});
+});
+</script>
+{/literal}

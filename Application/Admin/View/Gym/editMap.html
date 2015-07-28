@@ -1,0 +1,41 @@
+<div class="validateTips" id="menuTips" style="display:none;"></div>
+<form name="categoryForm" id="editForm" method="post" action="" target="_blank">
+    <input type="hidden" name="id" value="{$Think.get.id}" />
+    <input type="hidden" name="map_x" value="{$data.map_x}" />
+    <input type="hidden" name="map_y" value="{$data.map_y}" />
+</form>
+<div style="line-height:32px;margin-top:-10px;color:gray;">标记场馆位置：拖动地图中心的 <img src="/Admin/images/marker.png" />&nbsp;&nbsp; 保存场馆位置：点击弹出层右下角保存按钮</div>
+<div style="width:623px;height:325px" id="container"></div>
+<script>
+    var init = function() {
+        var data = {$data.json};
+        var container = document.getElementById('container');
+        var setMarker = function(center) {
+            var map = new qq.maps.Map(container, {
+                center: center,
+                zoom: 13
+            });
+            var marker = new qq.maps.Marker({
+                position: center,
+                map: map,
+                draggable: true
+            });
+            qq.maps.event.addListener(marker, 'dragend', function() {
+                $('#editForm input[name="map_x"]').val(marker.getPosition().getLat());
+                $('#editForm input[name="map_y"]').val(marker.getPosition().getLng());
+            });
+        }
+        if (data.map_x != "0" || data.map_y != "0") {
+            var center = new qq.maps.LatLng(data.map_x, data.map_y);
+            setMarker(center);
+        } else {
+            citylocation = new qq.maps.CityService();
+            citylocation.setComplete(function(result) {
+                setMarker(result.detail.latLng);
+            });
+            if (data.name) citylocation.searchCityByName(data.name);
+            else citylocation.searchLocalCity();
+        }
+    }
+    init();
+</script>

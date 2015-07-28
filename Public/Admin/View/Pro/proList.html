@@ -1,0 +1,77 @@
+<div class="tool_date cf">
+	<div class="title cf">
+		<div class="more form" id="ver_keys">			
+			<form id="lcsubmit" battr=1  burl='Pro/proList' page="Pro/proList" class="fl">
+				<input type="text" name="keywords" placeholder="模糊查找 - 项目名称"/>
+				<input type="submit"  class="btn" value="搜索">
+			</form>
+			<label>
+				<input type="button" value="新增" title="新增项目" width="550" saveUrl="Pro/addPro" infoUrl="Pro/editPro" class="btn editTrPop">
+			</label>
+		</div>
+	</div>
+</div>
+<!-- -->
+<div id="table_column" class="column cf datashow">
+	<div id="dataTable" class="dataTable">
+		<table  width="80%" cellpadding="5" cellspacing="3" class="contab">
+				<thead>
+					<tr>
+                        <th width="1%">
+                            <input type="checkbox" class="check" isc=2 ></th>
+						<th>项目ID</th>
+						<th>项目名称</th>
+						<th>项目状态</th>
+						<th>每场可售次数</th>
+						<th>操作</th>
+						<th>属性</th>
+					</tr>
+				</thead>		
+				<tbody class="dataTab">
+					{foreach from=$aData key=key item=val}
+					<tr {if $key%2 != 0} class="divGray" {/if}>
+						<td align="center">
+							<input disabled="disabled" type="hidden" name="id" value={$val.id} ><!-- 有删除功能的主键放在首个td下 -->
+							<input type="checkbox" name='ids[]' value="{$val.id}">
+						</td>
+                        <td align="center">{$val.id}</td>
+						<td align="center">
+							<input disabled="disabled" type="text" name="name" value="{$val.name}" style="width:50px;"/>
+						</td>
+						<td align="center">
+							<select name="status" disabled="disabled">
+								<option {if $val.status == 1}selected="selected"{/if} value=1 >启用</option>
+								<option {if $val.status == 0}selected="selected"{/if} value=0 >禁用</option>															
+							</select>
+						</td>
+						<td align="center">
+							<input disabled="disabled" type="text" name="number" value="{$val.number}" style="width:50px;"/>
+						</td>
+						<td align="center">
+                            <a class="editTr" title="编辑项目" width="550" saveUrl="Pro/addPro" infoUrl="Pro/editPro/id/{$val.id}" isedit="0">编辑</a>
+						</td>
+						<td align="center">
+                            <a class="editTrPop" title="{$val.name}属性关联" width="590" saveUrl="Pro/addAttr" infoUrl="Pro/editAttr/id/{$val.id}" isedit="0">属性关联</a>
+						</td>
+					</tr>
+				{/foreach}
+				<tr>
+					<td colspan="12" style="height:28px;">
+	        			&nbsp;&nbsp;
+	        			<span>
+	        				<a class="bantcheditTr" isedit="1">批量编辑</a>
+	        			</span>
+	        			&nbsp;&nbsp;
+						<span>
+							<a href="javascript:void(0);" burl="Pro/update" class="saveInfo">保存</a>
+						</span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="page">{$pagelink}</div>	
+</div>	
+<!-- end -->
+<div id="editFormDialog" style="display: none;" >
+</div>

@@ -1,0 +1,76 @@
+<include file="Public:header" />
+<div id="content" class="center-1000">
+  <div id="order_wrap">
+    <include file="User:userNav" />
+    <div class="right item_list">
+      <foreach name='d' item='v'>
+      <div class="item">
+        <div class="left comment-img"> <a href="{:U('site/index',array('gid'=>$v['gid'], 'pid'=>$v['pid']))}" target="_blank" class="left"> <img src="/uploads/gym/{$v.gym_info.icon}" width="147" height="98" /> </a> </div>
+        <div class="left comment-right">
+          <div class="comment-gym"> <a href="{:U('site/index',array('gid'=>$v['gid'], 'pid'=>$v['pid']))}" target="_blank" class="cl-blue">{$v.gym_info.name}-{$v.pro_info.name}</a> </div>
+          <if condition="$v.com_info eq null">
+          <div class="cl-ccc comment-tips">你为本次订场打几分？</div>
+          <div class="comment-total"> <span class="star_item">我的总体评价: </span> <span class="star_rate"></span> <span class="cl-999"> 请点击星星打分</span> </div>
+          <div class="starts">
+            <div> <span class="star_item">场地条件: </span> <span class="star_rate"></span> </div>
+            <div> <span class="star_item">配套设施: </span> <span class="star_rate"></span> </div>
+            <div> <span class="star_item">服务态度: </span> <span class="star_rate"></span> </div>
+            <div class="cl-ccc"> （最少评论15字，您的评价将是其他用户的重要参考） </div>
+            <textarea class="message" placeholder=""></textarea>
+            <div class="comment_submit"><span class="bg-org">保存评价</span> </div>
+          </div>
+          <else />
+          <div class="comment-total"> <span class="star_item">我的总体评价: </span> <span class="star_rate" data-score="4.5"></span>
+            <div class="right"><a href="###" class="cl-blue"><i class="del-icon edit"></i>编辑</a> <a href="###" class="cl-blue"><i class="del-icon del"></i>删除</a> </div>
+            <div class="clr"></div>
+            <div class="comment-text">视听效果挺不错的，其他的我就无所谓了。</div>
+          </div>
+          <div class="starts">
+            <div> <span class="star_item">场地条件: </span> <span class="star_rate"></span> </div>
+            <div> <span class="star_item">配套设施: </span> <span class="star_rate"></span> </div>
+            <div> <span class="star_item">服务态度: </span> <span class="star_rate"></span> </div>
+            <div class="cl-ccc"> （最少评论15字，您的评价将是其他用户的重要参考） </div>
+            <textarea class="message" placeholder=""></textarea>
+            <div class="comment_submit"><span class="bg-org">保存评价</span> </div>
+          </div>
+          </if>
+        </div>
+        <div class="clr"></div>
+      </div>
+      </foreach>
+      <div id="pagenation">
+        <div> {$pageLink} </div>
+      </div>
+    </div>
+    <div class="clr"></div>
+  </div>
+</div>
+<include file="Public:footer" /> 
+<script src="/Common/js/jquery.raty.js"></script> 
+<script type="text/javascript">
+    $(function() {
+        $('.star_rate').raty({
+            starHalf: '/Home/img/star-half.png', // The name of the half star image.
+            starOff: '/Home/img/star-off.png', // Name of the star image off.
+            starOn: '/Home/img/star-on.png',
+            score: function() {
+                var v = $(this).attr('data-score');
+                return v ? v : 0;
+            },
+        });
+        $('.cl-blue').click(function() {
+            $('body#order .item_list .comment').not($(this).next().next()).hide();
+            var e = $(this).next().next();
+            if (e.hasClass('comment')) e.toggle();
+        });
+
+        $('.comment-total').delegate('img,.right a', 'click', function() {
+            var text = $(this).parent().parent().find('.comment-text');
+            if (text.size() > 0) {
+                text.hide();
+            }
+            $(this).parent().parent().next().show();
+        })
+    });
+</script>
+</html>

@@ -1,0 +1,85 @@
+<div class="validateTips" id="menuTips" style="display:none;"></div>
+<div class="bill" id="attr_mag_wrap">
+    <volist name="attr" id="v">
+    <div class="bill-item">
+        <div style="width: 26%;" class="bill-item-left">{$v.name}：</div>
+        <div style="width: 70%;" class="bill-item-right">
+            <if condition="$v.type eq 0">
+            <input class="attr_te" type="text" did="{$v.id}" value='{$v.value}'/>
+            <elseif condition="$v.type eq 2"/>
+                <select class="attr_se" did="{$v.id}">
+                    <option value="0">请选择</option>
+                    <volist name="v['value']" id="w">
+                    <option <if condition="$w.s eq true">selected</if> value="{$w.v}">{$w.v}</option>
+                    </volist>
+                </select>
+            <elseif condition="$v.type eq 1"/>
+                <volist name="v['value']" id="w">
+                    <label>
+                        <input <if condition="$w.s eq true">checked</if> class="attr_ck" value="{$w.v}" type="checkbox" did="{$v.id}"/>
+                        {$w.v}
+                    </label>
+                    &nbsp;&nbsp;
+                </volist>
+            </if>
+        </div>
+        <div class="clr" />
+    </div>
+    </volist>
+</div>
+<script type="text/javascript">
+    $('#attr_mag_wrap').delegate('.attr_te', 'blur', function(){
+        var v = $.trim(this.value);
+        var data = {
+            gid: window.pageFunc.gid,
+            pid: window.pageFunc.pid,
+            aid: $(this).attr('did'),
+            val: v,
+            typ: 'text'
+        };
+        LC.loadData('Site/saveAttr', data, function(data) {
+            if (data.status != 1) {
+                LCPAGE.msg('menuTips', data.info.toString());
+                return;
+            }
+            LCPAGE.msg('menuTips', "数据已保存!");
+        })
+    }).delegate('.attr_ck', 'click', function(){
+        var v = [];
+        var d = $(this).attr('did');
+        $('.attr_ck[did=' + d + ']:checked').each(function(){
+            v.push(this.value);
+        });
+        var data = {
+            gid: window.pageFunc.gid,
+            pid: window.pageFunc.pid,
+            aid: d,
+            val: v,
+            typ: 'checkbox'
+        };
+        LC.loadData('Site/saveAttr', data, function(data) {
+            if (data.status != 1) {
+                LCPAGE.msg('menuTips', data.info.toString());
+                return;
+            }
+            LCPAGE.msg('menuTips', "数据已保存!");
+        })
+    }).delegate('.attr_se', 'change', function(){
+        var v = $.trim(this.value);
+        var d = $(this).attr('did');
+        var data = {
+            gid: window.pageFunc.gid,
+            pid: window.pageFunc.pid,
+            aid: d,
+            val: v,
+            typ: 'select'
+        };
+        LC.loadData('Site/saveAttr', data, function(data) {
+            if (data.status != 1) {
+                LCPAGE.msg('menuTips', data.info.toString());
+                return;
+            }
+            LCPAGE.msg('menuTips', "数据已保存!");
+        })
+    })
+</script>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>运动汇后台控制</title>
+<meta charset="UTF-8">
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" href="/Admin/css/common.css" type="text/css" />
+<link rel="stylesheet" href="/Admin/css/main.css" type="text/css" />
+<link rel="stylesheet" href="/Admin/css/model.css" type="text/css" />
+<link rel="stylesheet" href="/Admin/css/tooltipster.css" type="text/css" />
+<link rel="stylesheet" type="text/css" href="/Common/js/jquery-ui/themes/{$css}/jquery-ui.css"/>
+<link href="/Common/css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body class="uuuuu">
+<include file="Index:index_menu" />
+<div class="ajaxbox" style="display:none"  id="popConfirm">
+	<div class="popDiv" style="top:45%;left: 45%">
+		<div class="pop1">
+			<span>温馨提示</span>
+			<a href="javascript:void(0)" class="cls"></a>
+		</div>
+		<div class="pop2" id="popContent">
+			<div style="color:red;font-size:12px;font-weight:bold;text-align:center;padding:0 15px;line-height:20px;margin:15px 10px;">
+				content
+			</div>
+			<div align="center">
+				<button class="btn cls" id="confirm">确认</button>
+				<button class="btn cls">取消</button>
+			</div>
+		</div>
+		<div class="pop3"></div>
+	</div>
+</div>
+<div class="ajaxbox"  id="popLock" style="display:none"></div>	
+<div class="ajaxbox"  id="loading">
+    <img src="/Admin/images/loading.gif" class="ajaxabort" />
+</div>	
+<div class="tips">
+    <p></p>
+</div>
+<script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp"></script>
+<script src="/Common/js/r.js"></script>
+<script type="text/javascript" src="/Common/js/datepicker/WdatePicker.js"></script>
+<script type="text/javascript">  
+//导航栏菜单数据
+var Gjson = <?php echo $json_menu;?>;
+var MY = <?php echo $json_user_info;?>;
+var USERS = <?php echo $users;?>;
+var pInfos = <?php echo $pInfos;?>;
+var RightInfo = <?php echo $rPathInfo;?>;
+var VAR = {},
+LCPAGE = {};
+$LAB.script('/Common/js/jquery-1.11.1.min.js')
+	.script('/Common/js/ajaxupload.3.5.js')
+    .script('/Common/js/highcharts.js')
+    .script('/Common/js/jquery.cookie.js')
+    .script('/Common/js/jquery-ui/jquery-ui-1.11.1/jquery-ui.js')
+    .script('/Common/js/jquery.pagination.js')
+    .script('/Common/js/smart-2.10.min.js')
+    .script('/Common/js/lc-model.js')
+    .script('/Common/js/jquery.validate.js')
+    .script('/Common/js/jquery.timepicker.js')
+    .script('/Common/js/jquery.tooltipster.min.js')
+    .script('/Common/js/bind.js')
+    .script('/Common/js/lc_v2.core.js')
+    .script('/Common/js/smartyplugin.js')
+	.script('/Common/js/jquery.loading.js')
+    .wait(function() {
+    	var config = <?php echo $config;?>;	
+   		LC.init(config);
+        LCPAGE.getDataByurl();     
+        LCPAGE.liClick();
+    });
+</script>
+</body>
+</html>

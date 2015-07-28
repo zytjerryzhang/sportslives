@@ -1,0 +1,41 @@
+<include file="Public:header" />
+<div id="message-content" class="center-1000">
+    <div class="col01-pay tl l">
+        <div class="myorder tc l">
+            <div style="margin: 0 auto;height: 66px;padding-top:50px;">
+                <if condition="$status eq 0">
+                <img height="66" src="/Home/img/error_icon.png" style="display: inline;" />
+                <else />
+                <img height="66" src="/Home/img/success_icon.png" style="display: inline;" />
+                </if>
+                <span style="margin-left: 20px;font-size: 20px;display: inline;line-height: 66px;height: 66px;vertical-align: 20px;color:#858585;"><strong >{$error}{$message}</strong></span>
+            </div>
+        </div>
+        <div class="myorder tc l" style="margin-top: 30px;font-size: 16px;margin-bottom: 10px;">
+            <span>系统将在 <span style="color: #f49538;"><b id="wait" style="font-size: 19px;">{$waitSecond}</b>S</span> 后自动跳转</span>
+        </div>
+        <div class="myorder tc l" style="margin-bottom: 30px;">
+            <a href="/" class="orderbtn" style="display: inline-block;height: 35px;line-height: 35px;background: #fcfcfc;width:120px;border: 1px solid #ddd;">返回首页</a>
+            <a href="{$jumpUrl}" class="goon" style="display: inline-block;height: 35px;line-height: 35px;background:#F76120;width:120px;color:#fff;">马上跳转</a>
+        </div>
+        <a id="jump_url" style="display: none;" href="{$jumpUrl}"></a>
+    </div>
+</div>
+</div>
+<include file="Public:footer" />
+<script type="text/javascript">
+    $(function() {
+        var wait = document.getElementById('wait'),
+            href = document.getElementById('jump_url').href;
+        totaltime = parseInt(wait.innerHTML);
+        var interval = setInterval(function() {
+            var time = --totaltime;
+            wait.innerHTML = "" + time;
+            if (time === 0) {
+                location.href = href;
+                clearInterval(interval);
+            };
+        }, 1000);
+    })();
+</script>
+</html>

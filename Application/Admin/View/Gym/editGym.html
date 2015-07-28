@@ -1,0 +1,59 @@
+<div class="validateTips" id="menuTips" style="display:none;"></div>
+<form name="categoryForm" id="editForm" method="post" action="" target="_blank">
+    <input type="hidden" name="id" value="{$data.id}" />
+    <div class="bill">
+        <div class="bill-item">
+            <div style="width: 16%;" class="bill-item-left">名称：</div>
+            <div style="width: 33%;" class="bill-item-right">
+                <input type="text" required name="name" value="{$data.name}" />
+            </div>
+            <div style="width: 16%;" class="bill-item-left">状态：</div>
+            <div style="width: 33%;" class="bill-item-right">
+                <select name="status">
+                    <option <if condition="$data.status eq 0">selected</if> value="0">禁用</option>
+                    <option <if condition="$data.status eq 1">selected</if> value="1">正常</option>
+                    <option <if condition="$data.status eq 2">selected</if> value="2">待审核</option>
+                    <option <if condition="$data.status eq 3">selected</if> value="3">末通过审核</option>
+                </select>
+            </div>
+            <div class="clr" />
+        </div>
+        <div class="bill-item">
+            <div style="width: 16%;" class="bill-item-left">地址：</div>
+            <div style="width: 83%;" class="bill-item-right">
+                <input type="text" required name="addr" value="{$data.addr}" style="width:445px;" />
+            </div>
+            <div class="clr" />
+        </div>
+        <div class="bill-item">
+            <div style="width: 16%;" class="bill-item-left">固话：</div>
+            <div style="width: 33%;" class="bill-item-right">
+                <input type="text" name="tele" value="{$data.tele}" />
+            </div>
+            <div style="width: 16%;" class="bill-item-left">手机：</div>
+            <div style="width: 33%;" class="bill-item-right">
+                <input type="text" name="phone" value="{$data.phone}"/>
+            </div>
+            <div class="clr" />
+        </div>
+        <div class="bill-item">
+            <div style="width: 16%;" class="bill-item-left">开馆时间：</div>
+            <div style="width: 33%;" class="bill-item-right">
+                <input type="text" class="timepicker" name="opentime" value="{$data.opentime}" />
+            </div>
+            <div style="width: 16%;" class="bill-item-left">闭馆时间：</div>
+            <div style="width: 33%;" class="bill-item-right">
+                <input type="text" class="timepicker" name="closetime" value="{$data.closetime}"/>
+            </div>
+            <div class="clr" />
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+$('.timepicker').timepicker({
+    minTime:'6:00am',
+    maxTime:'12:00am',
+    timeFormat:'H:i:s',
+    show2400:true
+});
+</script>

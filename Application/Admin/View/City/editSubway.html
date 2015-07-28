@@ -1,0 +1,63 @@
+<div class="validateTips" id="menuTips" style="display:none;"></div>
+<div class="bill"><foreach name="data" item="val">
+        <include file="City/subwayTag" />
+    </foreach>
+
+    <div class="bill-item">
+        <div style="width:96%;text-align:center;" class="bill-item-right">
+            <input type="text" required id="name" style="width:100px;" />
+            <input type="hidden" id="city_id" value="{$Think.get.id}" />
+            <select id="status">
+                <option value="0">禁用</option>
+                <option value="1">启用</option>
+            </select>
+            <input type="button" value="保存" class="btn saveSubway">
+        </div>
+        <div class="clr" />
+    </div>
+</div>
+<div id="subwayTag" style="display:none;">
+    <include file="City:subwayTag" />
+</div>
+<script type="text/javascript">
+    $('.bill').delegate('.saveSubway', 'click', function() {
+        var data = {
+            city_id: $('#city_id').val(),
+            status: $('#status').val(),
+            val: $('#name').val()
+        };
+        _this = this;
+        LC.loadData('City/addSubway', data, function(data) {
+            if (data.status != 1) {
+                LCPAGE.msg('menuTips', data.info.toString());
+                return;
+            }
+            id = data.data
+            $('#subwayTag .tag').attr('data-id', id).attr('value', $('#name').val());
+            $('#subwayTag .ch').attr('data-id', id).find('[value="' + $('#status').val() + '"]').attr('selected', true);
+            $('#subwayTag .ch').find('[value="' + (1-$('#status').val()) + '"]').attr('selected', false);
+            $('.bill').prepend($.trim($('#subwayTag').html()));
+            $('#name').val('')
+            $('#status').val(0)
+
+        })
+        return false;
+    }).delegate('.tag', 'click', function() {
+        $(this).attr("readonly", false)
+    }).delegate('.tag', 'blur', function() {
+        $(this).attr("readonly", true)
+        var data = {};
+        data.id = $(this).attr('data-id');
+        data.status = $(this).next().val();
+        data.val = $.trim(this.value);
+        data.city_id = $('#city_id').val();
+        _this = this;
+        LC.loadData('City/addSubway', data, function(data) {
+            if (data.status != 1) {
+                LCPAGE.msg('menuTips', data.info.toString());
+            }
+        })
+    }).delegate('.ch', 'change', function() {
+        $(this).prev().blur();
+    })
+</script>

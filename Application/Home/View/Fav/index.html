@@ -1,0 +1,47 @@
+<include file="Public:header" />
+<div id="content" class="center-1000">
+  <div id="order_wrap">
+    <include file="User:userNav" />
+    <div class="right item_list">
+      <foreach name='d' item='v'>
+      <div class="item">
+        <div class="order-info item-div"> <a href="{:U('site/index',array('gid'=>$v['gid'], 'pid'=>$v['pid']))}" class="left" target="_blank"> <img src="/uploads/gym/{$v.gym_info.icon}" width="147" height="98" /> </a>
+          <div class="order-info-wrap">
+            <div>皇冠体育中心-足球场</div>
+            <a href="{:U('site/index',array('gid'=>$v['gid'], 'pid'=>$v['pid']))}" target="_blank" class="cl-blue lh-25">场馆信息</a> </div>
+          <div class="clr"></div>
+        </div>
+        <div class="site-num ag-center item-div">&nbsp;</div>
+        <div class="price-total ag-center item-div"> <a href="{:U('site/index',array('gid'=>$v['gid'], 'pid'=>$v['pid']))}" target="_blank" class="cl-blue lh-25">前去预订</a> </div>
+        <div class="order-status ag-center item-div">&nbsp;</div>
+        <div class="operation ag-center item-div"> <a data-gid="{$v.gid}" data-pid="{$v.pid}" href="删除" class="cl-blue del_a lh-25"><i class="del-icon del"></i>删除</a></div>
+        <div class="clr"></div>
+      </div>
+      </foreach>
+      <div id="pagenation">
+        <div> {$pageLink} </div>
+      </div>
+    </div>
+    <div class="clr"></div>
+  </div>
+</div>
+<include file="Public:footer" /> 
+<script type="text/javascript">
+$(function(){
+    $('.del_a').click(function(){
+        if (!confirm("确定删除该收藏?")) return false;
+
+        var postData = {
+            pid:$(this).attr('data-pid'),
+            gid:$(this).attr('data-gid'),
+        }
+
+        var _this = this;
+        FR.loadData('/Fav/del', postData, function(){
+            $(_this).parent().parent().remove();
+        });
+        return false;
+    });
+});
+</script>
+</html>

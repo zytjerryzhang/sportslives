@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>微金提示</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="__PUBLIC__/css/wj.css"/>
+</head>
+<body>
+<div class="g-doc">
+    <div class="g-bd">
+        <!--begin head-->
+        <div class="m-register-header f-cb wj-width">
+            <div class="f-fl">
+                <a class="m-logo" href="">
+                    <img src="__PUBLIC__/image/logo.png" width="390" height="58" title="微金互助">
+                </a>
+                <i class="m-border"></i>
+                <span class="m-register-span">提示信息</span>
+            </div>
+        </div>
+        <div class="wj-width m-jump-tip">
+            <?php
+                if(C('LAYOUT_ON')) {
+                    echo '{__NOLAYOUT__}';
+                }
+            ?>
+            <?php if(isset($message)) {?>
+            <h2 class="m-jump-success"><?php echo($message); ?></h2>
+            <?php }else{?>
+            <h2 class="m-jump-error"><?php echo($error); ?></h2>
+            <?php }?>
+            <p class="m-jump-detail"></p>
+            <p class="m-jump-jump">
+                <a class="u-btn u-btn-c4 u-btn-sm" id="href" href="<?php echo($jumpUrl); ?>">点此返回</a><b id="wait"><?php echo($waitSecond); ?></b>秒后页面将自动跳转
+            </p>
+        </div>
+    </div>
+</div>
+    <script type="text/javascript">
+        (function(){
+            var wait = document.getElementById('wait'),href = document.getElementById('href').href;
+            var interval = setInterval(function(){
+                var time = --wait.innerHTML;
+                if(time <= 0) {
+                    location.href = href;
+                    clearInterval(interval);
+                };
+            }, 1000);
+        })();
+    </script>
+</body>
+</html>

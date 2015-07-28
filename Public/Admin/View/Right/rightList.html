@@ -1,0 +1,141 @@
+<div class="toolbar cf">
+	<div class="tool_date cf">
+		<div class="title cf">
+			<div class="more form" id="ver_keys">			
+				<form id="lcsubmit" battr=1  burl='Right/rightList' page="Right/rightList" class="fl">
+					<label>关键字搜索:  </label>
+					<input type="text" name="keywords" placeholder="精确查找- 英文名:值"/>
+					<input type="submit"  class="btn" value="搜索">
+				</form>
+				{if $permission.'Right/modifyRight'}
+					<label><input type="button" value="保存"  burl="Right/modifyRight" class="saveInfo btn"/></label>
+				{/if}
+				{if $permission.'Right/addRight'}
+					<input type="button" onclick="addRight()" class="btn" value="添加权限" />
+				{/if}
+			</div>
+		</div>
+	</div>
+</div>
+<!-- -->
+<div id="table_column" class="column cf datashow">
+	<div id="dataTable" class="dataTable">
+		<table  width="80%" cellpadding="5" cellspacing="3" class="contab">
+			<thead>
+				<tr>
+					<th><input type="checkbox" class="check" isc=2 ></th>
+					<th>序号</th>
+					<th burl='Right/rightList' page="Right/rightList" {if $orderInfo.0 == 'grp' && $orderInfo.1 == 'asc'}by="desc"{else}by="asc"{/if} col="grp" onclick="LC.show(this, '', 'showDiv')">
+						权限模块
+						{if $orderInfo.0 == 'grp' && $orderInfo.1 == 'asc'}
+							<img src="/Admin/images/s_asc.png">
+						{elseif $orderInfo.0 == 'grp' && $orderInfo.1 == 'desc'}
+							<img src="/Admin/images/s_desc.png">
+						{/if}
+					</th>
+					<th burl='Right/rightList' page="Right/rightList" {if $orderInfo.0 == 'url' && $orderInfo.1 == 'asc'}by="desc"{else}by="asc"{/if} col="url" onclick="LC.show(this, '', 'showDiv')">
+						模块名称
+						{if $orderInfo.0 == 'url' && $orderInfo.1 == 'asc'}
+							<img src="/Admin/images/s_asc.png">
+						{elseif $orderInfo.0 == 'url' && $orderInfo.1 == 'desc'}
+							<img src="/Admin/images/s_desc.png">
+						{/if}
+					</th>
+					<th>权限名称</th>	
+					<th>状态</th>
+					<th>操作</th>
+				</tr>
+			</thead>		
+			<tbody class="dataTab">
+				{foreach from=$aData key=key item=val}
+					<tr {if $key%2 != 0} class="divGray" {/if}>
+						<td align="center">
+							<input disabled="disabled" type="hidden" name="id" value={$val.id} ><!-- 有删除功能的主键放在首个td下 -->
+							<input type="checkbox" name='ids[]' value="{$val.id}">
+						</td>
+						<td align="center">{$key+1}</td>
+						<td align="center">
+							<select name="grp" disabled="disabled" style="width:170px;">
+								{foreach from=$menu_list item=v}
+									<option value="{$v.id}" {if $v.id eq $val.grp} selected="selected"{/if}>{$v.name}</option>
+								{/foreach}										
+							</select>
+						</td>
+						<td align="center"><input disabled="disabled" type="hidden" name="id" value={$val.id} >
+							<input disabled="disabled" type="text" name="url" value="{$val.url}" style="width:250px;"/>
+						</td>
+						<td align="center">
+							<input disabled="disabled" type="text" name="name" value="{$val.name}" style="width:220px;"/>
+						</td>
+						<td align="center">
+							<select name="status" disabled="disabled">
+								<option {if $val.status == 1}selected="selected"{/if} value=1 >正常</option>
+								<option {if $val.status == 0}selected="selected"{/if} value=0 >禁用</option>															
+							</select>
+						</td>
+						<td align="center">	
+							{if $permission.'Right/delRight'}							
+								<a class="dropTr" burl="Right/delRight"><img width="16" height="16" alt="删除" title="删除" src="/Admin/images/b_drop.png"></a>
+								&nbsp;|&nbsp;
+							{/if}						
+							<span><a class="editTr" isedit="0">编辑</a></span>							
+						</td>
+					</tr>
+				{/foreach}
+				<tr>
+					<td colspan="7" style="height:28px;">
+						<span><img src="/Admin/images/arrow_ltr.png"></span> 
+	        			<span>
+	        				<a class="check" isc=1>全选</a> / 
+	        				<a class="check" isc=0>全不选</a>
+	        			</span>
+	        			&nbsp;&nbsp;
+	        			<span>
+	        				<a class="bantcheditTr" isedit="1">批量编辑</a>
+	        			</span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="page">{$pagelink}</div>	
+</div>
+<!-- end -->
+<!--新增权限弹层-->
+<div id="addright_dialog" style="display: none;" title="新增权限">
+    <div class="validateTips" id="addRightTips" style="display:none;"></div>
+    <form name="rightForm" id="rightForm" method="post" action="" target="_blank">
+        <div class="bill">
+        	<div class="bill-item">
+                <div style="width: 26%;" class="bill-item-left">权限模块：</div>
+                <div style="width: 70%;" class="bill-item-right">
+                	 <select name="grp" style="width:170px;">
+                	 	{foreach from=$menu_list item=v}
+							<option value="{$v.id}">{$v.name}</option>
+						{/foreach}
+					</select>	
+                </div>
+                <div class="clr" />
+            </div>
+        	<div class="bill-item">
+                <div style="width: 26%;" class="bill-item-left">权限名称：</div>
+                <div style="width: 70%;" class="bill-item-right">
+                   <input type="text" name="name" style="width:220px;"/>
+                </div>
+                <div class="clr" />
+            </div>
+            <div class="bill-item">
+                <div style="width: 26%;" class="bill-item-left">模块名称：</div>
+                <div style="width: 70%;" class="bill-item-right">
+                   <input type="text" name="url" style="width:220px;"/>
+                </div>
+                <div class="clr" />
+            </div>
+        </div>
+    </form>
+</div>
+{literal}
+<script type="text/javascript">  
+	$LAB.script('/Admin/js/Right/right.js?'+ LC._version);
+</script>
+{/literal}

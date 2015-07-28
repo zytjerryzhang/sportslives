@@ -1,0 +1,86 @@
+{literal}
+<style>
+	.dataTab td{ height: 27px;}
+</style>
+{/literal}
+<!-- -->
+<div id="table_column" class="column cf datashow">
+	<div class="title">
+		<div id="tblMore" class="more" style="display: none;"></div>
+		详细数据
+	</div><!-- .title -->
+	<div>
+		<table  width="80%" cellpadding="5" cellspacing="3" class="contab" style="margin:25px 0px;">
+				<thead>
+					<tr>
+						<th colspan="6" style="text-align:center; font-weight:bold; ">系统信息</th>
+					</tr>
+				</thead>		
+				<tbody class="dataTab">
+					<tr>
+						<td class="bill-title">PHP程序版本</td>
+						<td>{$sysInfo.php}</td>
+						<td class="bill-title">ZEND版本</td>
+						<td>{$sysInfo.zend}</td>
+						<td class="bill-title">MYSQL支持</td>
+						<td>{$sysInfo.mysql}</td>
+					</tr>
+					<tr>
+						<td class="bill-title">数据库持续连接</td>
+						<td>{$sysInfo.clink}</td>
+						<td class="bill-title">MySQL最大连接数</td>
+						<td>{$sysInfo.maxlink}</td>
+						<td class="bill-title">服务器操作系统</td>
+						<td>{$sysInfo.serv}</td>
+					</tr>
+					<tr>
+						<td class="bill-title">服务器端信息</td>
+						<td>{$sysInfo.sermes}</td>
+						<td class="bill-title">最大上传限制</td>
+						<td>{$sysInfo.maxup}</td>
+						<td class="bill-title">最大执行时间</td>
+						<td>{$sysInfo.maxrun}</td>
+					</tr>
+					<tr>
+						<td class="bill-title">客户端IP</td>
+						<td>{$sysInfo.cip}</td>
+						<td class="bill-title">UserAgent</td>
+						<td colspan="3">{$sysInfo.user_agent}</td>
+					</tr>
+			</tbody>
+		</table>
+		<table  width="80%" cellpadding="5" cellspacing="3" class="contab" style="margin:25px 0px;">
+				<thead>
+					<tr>
+						<th colspan="6" style="text-align:center; font-weight:bold; ">用户详细信息</th>
+					</tr>
+				</thead>		
+				<tbody class="dataTab">
+					<tr>
+						<td class="bill-title">用户名</td>
+						<td>{$userInfo.realname}({$userInfo.username})</td>
+						<td class="bill-title">系统邮箱</td>
+						<td>{$userInfo.email}</td>
+						<td class="bill-title">移动电话</td>
+						<td>{$userInfo.mobile}</td>
+					</tr>
+					<tr>
+						<td class="bill-title">创建时间</td>
+						<td>{$userInfo.create_time}</td>
+						<td class="bill-title">用户部门</td>
+						<td>{$userInfo.dept_name}</td>
+						<td class="bill-title">职位</td>
+						<td>{$userInfo.pos_name}</td>
+					</tr>
+			</tbody>
+		</table>
+		<table  width="80%" cellpadding="5" cellspacing="3" class="contab" style="margin:25px 0px;">
+				<thead>
+					<tr>
+						<th colspan="6" style="text-align:center; font-weight:bold; ">深圳运动人生体育有限公司   网络技术部IT组   技术支持</th>
+					</tr>
+				</thead>		
+		</table>
+	</div>
+</div>	
+
